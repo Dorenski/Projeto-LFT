@@ -65,14 +65,10 @@ tokens = [
 	'R_COLCHETE',
 	'L_CHAVE',
 	'R_CHAVE',
-	'INCREMENTO_POS',
-	'DECREMENTO_POS',
 	'NAO_LOGICO',
 	'NAO_BITABIT',
-	'POSITIVO_U',
-	'NEGATIVO_U',
-	'INCREMENTO_PRE',
-	'DECREMENTO_PRE',
+	'INCREMENTO',
+	'DECREMENTO',
 	'EXPONENCIACAO',
 	'MULTIPLICACAO',
 	'RESTO',
@@ -92,75 +88,76 @@ tokens = [
 	'OR_BITABIT',
 	'AND_LOGICO',
 	'OR_LOGICO',
-	'TERNARIO',
+	'INTERROGACAO',
+	'DOIS_PONTOS',
 	'ATRIBUICAO',
 	'PROPAGACAO',
 	'VIRGULA',
+    'FLOAT_LITERAL',
+    'INT_LITERAL',
 	
-	'PONTO_E_VIRGULA',
 	'ASPAS_DUPLAS',
 	'ASPAS',
+	'PONTO_E_VIRGULA',
 	'ID',
 	'STRING_AD',
 	'STRING_A',
 	'OCTAL',
 	'HEXADECIMAL',
-	'BOOLEAN',
-	'OBJECT',
 	'COMENTARIO',
-	'L_COMENTARIO_MULTILINHA'
-	'R_COMENTARIO_MULTILINHA'
 ] + list(reservadas.values())
 
 t_L_PARENTESIS = r'\('
 t_R_PARENTESIS = r'\)'
+t_PROPAGACAO = r'\.\.\.'
 t_ACESSO_MEMBRO = r'\.'
 t_L_COLCHETE = r'\['
 t_R_COLCHETE = r'\]'
 t_L_CHAVE = r'\{'
 t_R_CHAVE = r'\}'
 
-t_INCREMENTO_POS = r'\+\+'
-t_DECREMENTO_POS = r'\-\-'
+t_INCREMENTO = r'\+\+'
+t_DECREMENTO = r'\-\-'
 
 t_NAO_LOGICO = r'\!'
 t_NAO_BITABIT = r'\~'
-t_POSITIVO_U = r'\+'
-t_NEGATIVO_U = r'\-'
 
-t_INCREMENTO_PRE = r'\+\+'
-t_DECREMENTO_PRE = r'\-\-'
-
-t_EXPONENCIACAO = r'\**'
+t_EXPONENCIACAO = r'\*\*'
 t_MULTIPLICACAO = r'\*'
 t_RESTO = r'\%'
 t_DIVISAO = r'\/'
 t_SOMA = r'\+'
 t_SUBTRACAO = r'\-'
 
-t_MENOR = r'\<'
 t_MENOR_IGUAL = r'\<\='
-t_MAIOR = r'\>'
+t_MENOR = r'\<'
 t_MAIOR_IGUAL = r'\>\='
-t_IGUALDADE = r'\=\='
-t_DESIGUALDADE = r'\!\='
+t_MAIOR = r'\>'
 t_IGUAL_ESTRITA = r'\=\=\='
 t_DESIGUAL_ESTRITA = r'\!\=\='
+t_IGUALDADE = r'\=\='
+t_DESIGUALDADE = r'\!\='
+
+t_AND_LOGICO = r'\&\&'
 t_AND_BITABIT = r'\&'
 t_XOR_BITABIT = r'\^'
-t_OR_BITABIT = r'\|'
-t_AND_LOGICO = r'\&\&'
 t_OR_LOGICO = r'\|\|'
-t_TERNARIO = r'\?\:'
-t_ATRIBUICAO = r'\.'
-t_PROPAGACAO = r'\.\.\.'
+t_OR_BITABIT = r'\|'
+
+t_INTERROGACAO = r'\?'
+t_DOIS_PONTOS = r'\:'
+t_ATRIBUICAO = r'\='
+
 t_VIRGULA = r'\,'
 t_PONTO_E_VIRGULA = r'\;'
 t_ASPAS_DUPLAS = r'\"'
 t_ASPAS = r'\''
-t_COMENTARIO = r'\/\/'
 
 t_ignore = ' \t\r'
+
+def t_newline(t):
+    r'\n'
+    t.lexer.lineno += 1
 
 def t_ID(t):
 	r'[a-zA-Z_$][a-zA-Z_0-9$]*'
@@ -177,12 +174,12 @@ def t_STRING_A(t):
     return t
 	
 
-def t_FLOAT(t):
+def t_FLOAT_LITERAL(t):
     r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
-def t_INT(t):
+def t_INT_LITERAL(t):
     r'\d+'
     t.value = int(t.value)
     return t
@@ -203,15 +200,32 @@ def t_OBJECT(t):
     r'\b(null|undefined)\b'
     return t
 
-def t_L_COMENTARIO_MULTILINHA(t):
-    r'\/\*'
-    return t
+def t_COMENTARIO_MULTILINHA(t):
+    r'/\*(.|\n)*?\*/'
+    t.lexer.lineno += t.value.count('\n')
+    pass 
 
-def t_R_COMENTARIO_MULTILINHA(t):
-    r'\*\/'
-    return t    
+def t_COMENTARIO(t):
+    r'//.*'
+    pass
+
+def t_error(t):
+    print(f'Caractere ilegal: {t.value[0]}')
+    t.lexer.skip(1)
 
 def main():
-	pass
+    lexer = lex.lex()
 
+    data = '''let x = 10;'''
+
+    lexer.input(data)
+
+    while True:
+        tok = lexer.token()
+
+        if not tok:
+            break
+
+        print(tok)
+        
 main()
