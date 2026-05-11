@@ -88,9 +88,24 @@ tokens = [
 	'OR_BITABIT',
 	'AND_LOGICO',
 	'OR_LOGICO',
+	
 	'INTERROGACAO',
 	'DOIS_PONTOS',
+	
 	'ATRIBUICAO',
+    'MAIS_IGUAL',
+    'MENOS_IGUAL',
+	'MULTIPLICACAO_IGUAL',
+    'EXPONENCIACAO_IGUAL',
+	'DIVISAO_IGUAL',
+	'RESTO_IGUAL',
+    'DESLOC_E_IGUAL',
+    'DESLOC_D_IGUAL',
+    'DESLOC_D_S_IGUAL',
+    'AND_BIT_IGUAL',
+    'XOR_BIT_IGUAL',
+	'OR_BIT_IGUAL',
+
 	'PROPAGACAO',
 	'VIRGULA',
     'FLOAT_LITERAL',
@@ -216,7 +231,9 @@ def t_error(t):
 def main():
     lexer = lex.lex()
 
-    data = '''let x = 10;'''
+    data = '''
+    let x = 10;
+    console.log(x)'''
 
     lexer.input(data)
 
