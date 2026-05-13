@@ -3,7 +3,7 @@ import ply.lex as lex
 reservadas = {
 	'break' : 'BREAK',
 	'case' : 'CASE',
-	'catch' : 'CATCH',
+	#'catch' : 'CATCH',
 	'class' : 'CLASS',
 	'const' : 'CONST',
 	'continue' : 'CONTINUE',
@@ -12,44 +12,44 @@ reservadas = {
 	'delete' : 'DELETE',
 	'do' : 'DO',
 	'else' : 'ELSE',
-	'export' : 'EXPORT',
-	'extends' : 'EXTENDS',
+	#'export' : 'EXPORT',
+	#'extends' : 'EXTENDS',
 	'finally' : 'FINALLY',
 	'for' : 'FOR',
 	'function' : 'FUNCTION',
 	'if' : 'IF',
 	'import' : 'IMPORT',
 	'in' : 'IN',
-	'instanceof' : 'INSTANCEOF',
+	#'instanceof' : 'INSTANCEOF',
 	'new' : 'NEW',
 	'return' : 'RETURN',
-	'super' : 'SUPER',
+	#'super' : 'SUPER',
 	'switch' : 'SWITCH',
 	'this' : 'THIS',
-	'throw' : 'THROW',
-	'try' : 'TRY',
+	#'throw' : 'THROW',
+	#'try' : 'TRY',
 	'typeof' : 'TYPEOF',
 	'var' : 'VAR',
 	'void' : 'VOID',
 	'while' : 'WHILE',
 	'with' : 'WITH',
-	'yield' : 'YIELD',
-	'await' : 'AWAIT',
+	#'yield' : 'YIELD',
+	#'await' : 'AWAIT',
 	'protected' : 'PROTECTED',
 	'static' : 'STATIC',
 	'private' : 'PRIVATE',
 	'public' : 'PUBLIC',
 	'let' : 'LET',
-	'abstract' : 'ABSTRACT',
+	#'abstract' : 'ABSTRACT',
 	'boolean' : 'BOOLEAN',
 	'byte' : 'BYTE',
 	'char' : 'CHAR',
-	'double' : 'DOUBLE',
+	#'double' : 'DOUBLE',
 	'final' : 'FINAL',
-	'float' : 'FLOAT', 
+	#'float' : 'FLOAT', 
 	'int' : 'INT',
-	'long' : 'LONG',
-	'short' : 'SHORT',
+	#'long' : 'LONG',
+	#'short' : 'SHORT',
 	'true' : 'TRUE',
 	'false' : 'FALSE',
 	'null' : 'NULL',
@@ -161,7 +161,20 @@ t_OR_BITABIT = r'\|'
 
 t_INTERROGACAO = r'\?'
 t_DOIS_PONTOS = r'\:'
+
 t_ATRIBUICAO = r'\='
+t_MAIS_IGUAL = r'\+\='
+t_MENOS_IGUAL = r'\-\='
+t_MULTIPLICACAO_IGUAL = r'\*\='
+t_EXPONENCIACAO_IGUAL = r'\*\*\='
+t_DIVISAO_IGUAL = r'\/\='
+t_RESTO_IGUAL = r'\%\='
+t_DESLOC_E_IGUAL = r'\<\<\='
+t_DESLOC_D_IGUAL = r'\>\>\='
+t_DESLOC_D_S_IGUAL = r'\>\>\>\='
+t_AND_BIT_IGUAL = r'\&\='
+t_XOR_BIT_IGUAL = r'\^\='
+t_OR_BIT_IGUAL = r'\|\='
 
 t_VIRGULA = r'\,'
 t_PONTO_E_VIRGULA = r'\;'

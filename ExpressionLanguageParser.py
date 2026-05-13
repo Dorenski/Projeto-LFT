@@ -6,13 +6,14 @@
 #        exp === exp | exp !== exp | exp & exp | 
 #        exp ^ exp | ' exp | exp ' | exp == exp | exp != exp |  exp > exp | exp < exp | exp >= exp | 
 #        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | +exp | -exp | exp ? exp : exp | 
-#        ID | call | params | assign | TRUE | FALSE | STRING_AD | STRING_A
-#        
-#     FALTA OS TOKENS: exp += exp | exp -= exp | exp *= exp | exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp ' | exp /= exp | exp %= exp | exp **= exp | num
-# 
-# call → ID (params) | ID ( )
-# params → exp, params | exp
-# assign → ID = exp
+#        ID | call | params | assign | TRUE | FALSE | STRING_AD | STRING_A |
+#        exp += exp | exp -= exp | exp *= exp | exp **= exp | exp /= exp | exp %= exp |
+#        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp '  |
+#        num
+#    
+# call -> ID (params) | ID ( )
+# params -> exp, params | exp
+# assign -> ID = exp
 
 
 
@@ -23,7 +24,8 @@ from ExpressionLanguageLex import tokens
 # Genérico poxa, é só copiar essa parte e alterar 
 def p_exp_algumacoisa(p):
     ''' exp :  '''
-#================================================
+
+#================== EXP =========================
 
 def p_exp_SOMA(p):
     ''' exp : exp SOMA exp '''
@@ -135,6 +137,69 @@ def p_exp_STRING_AD(p):
 
 def p_exp_STRING_A(p):
    ''' exp : STRING_A '''
+
+def p_exp_MAIS_IGUAL_exp(p):
+    ''' exp : exp MAIS_IGUAL exp'''
+
+def p_exp_MENOS_IGUAL_exp(p):
+    ''' exp : exp MENOS_IGUAL exp'''
+
+def p_exp_MULTIPLICACAO_IGUAL_exp(p):
+    ''' exp : exp MULTIPLICACAO_IGUAL exp'''
+
+def p_exp_EXPONENCIACAO_IGUAL_exp(p):
+    ''' exp : exp EXPONENCIACAO_IGUAL exp'''
+
+def p_exp_DIVISAO_IGUAL_exp(p):
+    ''' exp : exp DIVISAO_IGUAL exp'''
+
+def p_exp_RESTO_IGUAL_exp(p):
+    ''' exp : exp RESTO_IGUAL exp'''
+
+def p_exp_DESLOC_E_IGUAL_exp(p):
+    ''' exp : exp DESLOC_E_IGUAL exp'''
+
+def p_exp_DESLOC_D_IGUAL_exp(p):
+    ''' exp : exp DESLOC_D_IGUAL exp'''
+
+def p_exp_DESLOC_D_S_IGUAL_exp(p):
+    ''' exp : exp DESLOC_D_S_IGUAL exp'''
+
+def p_exp_AND_BIT_IGUAL_exp(p):
+    ''' exp : exp AND_BIT_IGUAL exp'''
+
+def p_exp_XOR_BIT_IGUAL_exp(p):
+    ''' exp : exp XOR_BIT_IGUAL exp'''  
+
+def p_exp_OR_BIT_IGUAL_exp(p):
+    ''' exp : exp OR_BIT_IGUAL exp'''  
+
+def p_exp_INT_LITERAL(p):
+    ''' exp : INT_LITERAL'''
+
+
+#================== call =========================
+
+def p_call_ID_PARAMS(p):
+    ''' call : ID L_PARENTESIS params R_PARENTESIS'''
+
+def p_call_ID_PARENTESIS(p):
+    ''' call : ID L_PARENTESIS R_PARENTESIS'''
+
+#================== params =========================
+
+def p_params_exp_params(p):
+    ''' params : exp VIRGULA params'''
+
+def p_params_exp(p):
+    ''' params : exp'''
+
+#================== assign =========================
+
+def p_assign_ID_EXP(p):
+    ''' assign : ID ATRIBUICAO exp'''
+
+#==================  =========================
 
 def p_programa(p):
     pass
