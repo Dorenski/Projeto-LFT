@@ -1,19 +1,22 @@
-# Gramática
-# 
-#
+# program → funcdecl | funcdecl program | vardecl | vardecl program
+# funcdecl → signature body
+# signature → FUNCTION ID ( sigparams )
+# sigparams → ID |  ID , sigparams
+# body → { stms }
 # exp -> exp + exp | exp - exp | exp * exp | exp / exp | exp % exp | exp -- |
 #        exp ++ | ++ exp | -- exp |  exp ** exp | 
 #        exp === exp | exp !== exp | exp & exp | 
 #        exp ^ exp | ' exp | exp ' | exp == exp | exp != exp |  exp > exp | exp < exp | exp >= exp | 
 #        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | +exp | -exp | exp ? exp : exp | 
-#        ID | call | params | assign | TRUE | FALSE | STRING_AD | STRING_A |
+#        ID | call  | assign | TRUE | FALSE | STRING_AD | STRING_A |
 #        exp += exp | exp -= exp | exp *= exp | exp **= exp | exp /= exp | exp %= exp |
-#        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp '  |
-#        num
-#    
-# call -> ID (params) | ID ( )
-# params -> exp, params | exp
-# assign -> ID = exp
+#        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp '  | num
+# vardecl → LET ID ; | VAR ID ; | CONST ID ; | LET ID = exp ; | CONST ID = exp ; | VAR ID = exp ;
+# stms → stm | stm stms
+# stm → #IMPLEMENTAR O FOR# | assign; | vardecl | exp ; | return exp ; | WHILE ( exp ) body | IF ( exp ) body | IF ( exp ) body ELSE body
+# assign → ID = exp
+# call → ID (params) | ID ()
+# params → exp, params | exp
 
 
 
@@ -21,12 +24,39 @@ import ply.yacc as yacc
 import ply.lex as lex
 from ExpressionLanguageLex import tokens
 
-# Genérico poxa, é só copiar essa parte e alterar 
-def p_exp_algumacoisa(p):
-    ''' exp :  '''
+#================== program =========================
+def p_program_funcdecl(p):
+    ''' program : funcdecl '''
+
+def p_program_funcdecl_program(p):
+    ''' program : funcdecl program '''
+
+def p_program_vardecl(p):
+    ''' program : vardecl '''
+
+def p_program_vardecl_program(p):
+    ''' program : vardecl program '''
+    
+#================== funcdecl =========================
+def p_funcdecl(p):
+    ''' funcdecl : signature body '''
+
+#================== signature =========================
+def p_signature(p):
+    ''' signature : FUNCTION ID L_PARENTESIS sigparams R_PARENTESIS '''
+    
+#================== sigparams =========================
+def p_sigparams_id(p):
+    ''' sigparams : ID '''  
+    
+def p_sigparams_id_sigparams(p):
+    ''' sigparams : ID VIRGULA sigparams '''
+
+#================== body =========================
+def p_body(p):
+    ''' body : L_CHAVES stms R_CHAVES '''
 
 #================== EXP =========================
-
 def p_exp_SOMA(p):
     ''' exp : exp SOMA exp '''
     
@@ -120,9 +150,6 @@ def p_exp_ID(p):
 def p_exp_CALL(p):
    ''' exp : call '''
 
-def p_exp_PARAMS(p):
-   ''' exp : params '''
-
 def p_exp_ASSIGN(p):
    ''' exp : assign '''
 
@@ -178,28 +205,60 @@ def p_exp_INT_LITERAL(p):
     ''' exp : INT_LITERAL'''
 
 
-#================== call =========================
+#================== vardecl =========================
 
-def p_call_ID_PARAMS(p):
-    ''' call : ID L_PARENTESIS params R_PARENTESIS'''
+def p_vardecl(p):
+    ''' vardecl : LET ID PONTO_VIRGULA'''
+def p_vardecl_let(p):
+    ''' vardecl : LET ID ATRIBUICAO exp PONTO_VIRGULA'''
+def p_vardecl_const(p):
+    ''' vardecl : CONST ID PONTO_VIRGULA'''
+def p_vardecl_const_exp(p):
+    ''' vardecl : CONST ID ATRIBUICAO exp PONTO_VIRGULA'''
+def p_vardecl_var(p):
+    ''' vardecl : VAR ID PONTO_VIRGULA'''
+def p_vardecl_var_exp(p):
+    ''' vardecl : VAR ID ATRIBUICAO exp PONTO_VIRGULA'''
 
-def p_call_ID_PARENTESIS(p):
-    ''' call : ID L_PARENTESIS R_PARENTESIS'''
+#================== stms =========================
 
-#================== params =========================
+def p_stms_stm(p):
+    ''' stms : stm '''
+def p_stms_stm_stms(p):
+    ''' stms : stm stms '''
+    
+#================== stm =========================
 
-def p_params_exp_params(p):
-    ''' params : exp VIRGULA params'''
+def p_stm_assign(p):
+    ''' stm : assign PONTO_VIRGULA '''
+def p_stm_vardecl(p):
+    ''' stm : vardecl '''
+def p_stm_exp(p):
+    ''' stm : exp PONTO_VIRGULA '''
+def p_stm_return(p):
+    ''' stm : RETURN exp PONTO_VIRGULA '''
+def p_stm_while(p):
+    ''' stm : WHILE L_PARENTESIS exp R_PARENTESIS body '''
+def p_stm_if(p):
+    ''' stm : IF L_PARENTESIS exp R_PARENTESIS body '''
+def p_stm_if_else(p):
+    ''' stm : IF L_PARENTESIS exp R_PARENTESIS body ELSE body '''
 
-def p_params_exp(p):
-    ''' params : exp'''
+
 
 #================== assign =========================
+def p_assign_ID(p):
+    ''' assign : ID ATRIBUICAO exp '''
+    
+#================== call =========================
+def p_call_ID_Params(p):
+    ''' call : ID L_PARENTESIS params R_PARENTESIS '''
 
-def p_assign_ID_EXP(p):
-    ''' assign : ID ATRIBUICAO exp'''
+def p_call_ID(p):
+    ''' call : ID L_PARENTESIS R_PARENTESIS '''
 
-#==================  =========================
-
-def p_programa(p):
-    pass
+#================== params =========================
+def p_params_exp_params(p):
+    ''' params : exp VIRGULA param'''
+def p_params_exp(p):
+    ''' params : exp '''
