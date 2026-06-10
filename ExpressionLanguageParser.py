@@ -1,22 +1,47 @@
-# program → funcdecl | funcdecl program | vardecl | vardecl program
+# program → funcdecl | funcdecl program | vardecl | vardecl program | classdecl | classdecl program
+#
+# classdecl → CLASS ID classbody
+#
+# classbody → { classmembers }
+#
+# classmembers → classmember | classmember classmembers
+#
+# classmember → methoddecl | constructordecl | attrdecl
+#
+# constructordecl → CONSTRUCTOR ( sigparams ) body | CONSTRUCTOR ( ) body
+#
+# methoddecl → ID ( sigparams ) body | ID ( ) body
+#
+# attrdecl → ID ; | ID = exp ;
+#
 # funcdecl → signature body
+#
 # signature → FUNCTION ID ( sigparams )
-# sigparams → ID |  ID , sigparams
+#
+# sigparams → ID |  ID , sigparams | ε
+#
 # body → { stms }
+#
 # exp -> exp + exp | exp - exp | exp * exp | exp / exp | exp % exp | exp -- |
-#        exp ++ | ++ exp | -- exp |  exp ** exp | 
-#        exp === exp | exp !== exp | exp & exp | 
+#        exp ++ | ++ exp | -- exp |  exp ** exp | exp === exp | exp !== exp | exp & exp | 
 #        exp ^ exp | ' exp | exp ' | exp == exp | exp != exp |  exp > exp | exp < exp | exp >= exp | 
 #        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | +exp | -exp | exp ? exp : exp | 
-#        ID | call  | assign | TRUE | FALSE | STRING_AD | STRING_A |
 #        exp += exp | exp -= exp | exp *= exp | exp **= exp | exp /= exp | exp %= exp |
-#        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp '  | num
+#        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp ' | 
+#        NEW ID () | NEW ID ( params ) | exp . ID | exp . call | THIS |
+#        num | ID | call  | assign | TRUE | FALSE | STRING_AD | STRING_A 
+#
 # vardecl → LET ID ; | VAR ID ; | CONST ID ; | LET ID = exp ; | CONST ID = exp ; | VAR ID = exp ;
+#
 # stms → stm | stm stms
-# stm → #IMPLEMENTAR O FOR# | assign; | vardecl | exp ; | return exp ; | WHILE ( exp ) body | IF ( exp ) body | IF ( exp ) body ELSE body
-# assign → ID = exp
-# call → ID (params) | ID ()
-# params → exp, params | exp
+#
+# stm → #IMPLEMENTAR O FOR# | assign; | vardecl | exp ; | RETURN exp ; | WHILE ( exp ) body | IF ( exp ) body | IF ( exp ) body ELSE body
+#
+# assign → ID = exp | exp . ID = exp
+#
+# call → ID (params) | ID () | exp . ID (params) | exp . ID ()
+#
+# params → exp, params | exp | ε
 
 
 
@@ -144,27 +169,6 @@ def p_exp_NEGATIVO_UNARIO(p):
 def p_exp_TERNARIO(p):
    ''' exp : exp INTERROGACAO exp DOIS_PONTOS exp '''
 
-def p_exp_ID(p):
-   ''' exp : ID '''
-
-def p_exp_CALL(p):
-   ''' exp : call '''
-
-def p_exp_ASSIGN(p):
-   ''' exp : assign '''
-
-def p_exp_TRUE(p):
-   ''' exp : TRUE '''
-
-def p_exp_FALSE(p):
-   ''' exp : FALSE '''
-   
-def p_exp_STRING_AD(p):
-   ''' exp : STRING_AD '''
-
-def p_exp_STRING_A(p):
-   ''' exp : STRING_A '''
-
 def p_exp_MAIS_IGUAL_exp(p):
     ''' exp : exp MAIS_IGUAL exp'''
 
@@ -204,6 +208,26 @@ def p_exp_OR_BIT_IGUAL_exp(p):
 def p_exp_INT_LITERAL(p):
     ''' exp : INT_LITERAL'''
 
+def p_exp_ID(p):
+   ''' exp : ID '''
+
+def p_exp_CALL(p):
+   ''' exp : call '''
+
+def p_exp_ASSIGN(p):
+   ''' exp : assign '''
+
+def p_exp_TRUE(p):
+   ''' exp : TRUE '''
+
+def p_exp_FALSE(p):
+   ''' exp : FALSE '''
+   
+def p_exp_STRING_AD(p):
+   ''' exp : STRING_AD '''
+
+def p_exp_STRING_A(p):
+   ''' exp : STRING_A '''
 
 #================== vardecl =========================
 
