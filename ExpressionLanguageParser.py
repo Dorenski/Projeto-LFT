@@ -16,9 +16,9 @@
 #
 # funcdecl → signature body
 #
-# signature → FUNCTION ID ( sigparams )
+# signature → FUNCTION ID ( sigparams ) | FUNCTION ID ()
 #
-# sigparams → ID |  ID , sigparams | ε
+# sigparams → ID |  ID , sigparams
 #
 # body → { stms }
 #
@@ -41,7 +41,7 @@
 #
 # call → ID (params) | ID () | exp . ID (params) | exp . ID ()
 #
-# params → exp, params | exp | ε
+# params → exp, params | exp
 
 
 
@@ -61,14 +61,69 @@ def p_program_vardecl(p):
 
 def p_program_vardecl_program(p):
     ''' program : vardecl program '''
+
+def p_program_classdecl(p):
+    '''program : classdecl '''
     
+def p_program_classdecl_program(p):
+    '''program : classdecl program '''
+
+#================== classdecl =========================
+def p_classdecl_CLASS_ID_classbody(p):
+    '''classdecl : CLASS ID classbody '''
+    
+#================== classbody =========================
+def p_classbody_classmembers(p):
+    '''classbody : L_CHAVE classmembers R_CHAVE '''
+
+#================== classmembers =========================
+def p_classmembers_classmember(p):
+    '''classmembers : classmember '''
+
+def p_classmembers_classmembers(p):
+    '''classmembers : classmember classmembers '''
+
+#================== classmember =========================
+def p_classmember_methoddecl(p):
+    '''classmember : methoddecl '''
+
+def p_classmember_constructordecl(p):
+    '''classmember : constructordecl '''
+
+def p_classmember_attrdecl(p):
+    '''classmember : attrdecl '''
+
+#================== constructordecl =========================   
+def p_constructordecl_sigparams(p):
+    '''constructordecl : CONSTRUCTOR L_PARENTESIS sigparams R_PARENTESIS body '''
+    
+def p_constructordecl_NOsigparams(p):
+    '''constructordecl : CONSTRUCTOR L_PARENTESIS  R_PARENTESIS body '''
+    
+#================== methoddecl =========================
+def p_methoddecl_sigparams(p):
+    '''methoddecl : ID L_PARENTESIS sigparams R_PARENTESIS body '''
+    
+def p_methoddecl_NOsigparams(p):
+    '''methoddecl : ID L_PARENTESIS R_PARENTESIS body '''
+
+#================== attrdecl =========================
+def p_attrdecl_ID(p):
+    ''' attrdecl : ID PONTO_E_VIRGULA '''
+    
+def p_attrdecl_exp(p):
+    ''' attrdecl : ID ATRIBUICAO exp PONTO_E_VIRGULA '''
+
 #================== funcdecl =========================
 def p_funcdecl(p):
     ''' funcdecl : signature body '''
 
 #================== signature =========================
-def p_signature(p):
+def p_signature_sigparams(p):
     ''' signature : FUNCTION ID L_PARENTESIS sigparams R_PARENTESIS '''
+
+def p_signature_NOsigparams(p):
+    ''' signature : FUNCTION ID L_PARENTESIS R_PARENTESIS '''
     
 #================== sigparams =========================
 def p_sigparams_id(p):
@@ -204,7 +259,23 @@ def p_exp_XOR_BIT_IGUAL_exp(p):
 
 def p_exp_OR_BIT_IGUAL_exp(p):
     ''' exp : exp OR_BIT_IGUAL exp'''  
+#COMEÇAR DAQUI
+# exp . ID | exp . call | THIS |
+def p_exp_NEW_ID_NOparams(p):
+    ''' exp : NEW ID L_PARENTESIS R_PARENTESIS'''
 
+def p_exp_NEW_ID_params(p):
+    ''' exp : NEW ID L_PARENTESIS params R_PARENTESIS'''
+    
+def p_exp_exp_ID(p):
+    ''' exp : exp ACESSO_MEMBRO ID'''
+
+def p_exp_exp_call(p):
+    ''' exp : exp ACESSO_MEMBRO call'''
+
+def p_exp_THIS(p):
+    ''' exp : THIS'''
+#FINALIZA AQUI
 def p_exp_INT_LITERAL(p):
     ''' exp : INT_LITERAL'''
 
@@ -233,14 +304,19 @@ def p_exp_STRING_A(p):
 
 def p_vardecl(p):
     ''' vardecl : LET ID PONTO_VIRGULA'''
+    
 def p_vardecl_let(p):
     ''' vardecl : LET ID ATRIBUICAO exp PONTO_VIRGULA'''
+    
 def p_vardecl_const(p):
     ''' vardecl : CONST ID PONTO_VIRGULA'''
+    
 def p_vardecl_const_exp(p):
     ''' vardecl : CONST ID ATRIBUICAO exp PONTO_VIRGULA'''
+    
 def p_vardecl_var(p):
     ''' vardecl : VAR ID PONTO_VIRGULA'''
+    
 def p_vardecl_var_exp(p):
     ''' vardecl : VAR ID ATRIBUICAO exp PONTO_VIRGULA'''
 
@@ -274,6 +350,8 @@ def p_stm_if_else(p):
 def p_assign_ID(p):
     ''' assign : ID ATRIBUICAO exp '''
     
+def p_assign_exp_ID(p):
+    ''' assign : exp ACESSO_MEMBRO ID ATRIBUICAO exp '''
 #================== call =========================
 def p_call_ID_Params(p):
     ''' call : ID L_PARENTESIS params R_PARENTESIS '''
@@ -281,6 +359,12 @@ def p_call_ID_Params(p):
 def p_call_ID(p):
     ''' call : ID L_PARENTESIS R_PARENTESIS '''
 
+def p_call_exp_ID_Params(p):
+    ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS params R_PARENTESIS '''
+
+def p_call_exp_ID_NOParams(p):
+    ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS R_PARENTESIS '''
+    
 #================== params =========================
 def p_params_exp_params(p):
     ''' params : exp VIRGULA param'''

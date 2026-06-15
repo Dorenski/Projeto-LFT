@@ -6,6 +6,7 @@ reservadas = {
 	#'catch' : 'CATCH',
 	'class' : 'CLASS',
 	'const' : 'CONST',
+    'constructor' : 'CONSTRUCTOR',
 	'continue' : 'CONTINUE',
 	'debugger' : 'DEBUGGER',
 	'default' :  'DEFAULT',
