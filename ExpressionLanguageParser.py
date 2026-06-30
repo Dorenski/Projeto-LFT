@@ -25,7 +25,7 @@
 # exp -> exp + exp | exp - exp | exp * exp | exp / exp | exp % exp | exp -- |
 #        exp ++ | ++ exp | -- exp |  exp ** exp | exp === exp | exp !== exp | exp & exp | 
 #        exp ^ exp | ' exp | exp ' | exp == exp | exp != exp |  exp > exp | exp < exp | exp >= exp | 
-#        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | +exp | -exp | exp ? exp : exp | 
+#        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | olhar +exp | olhar -exp | exp ? exp : exp | 
 #        exp += exp | exp -= exp | exp *= exp | exp **= exp | exp /= exp | exp %= exp |
 #        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp ' | 
 #        NEW ID () | NEW ID ( params ) | exp . ID | exp . call | THIS |
@@ -35,7 +35,7 @@
 #
 # stms → stm | stm stms
 #
-# stm → #IMPLEMENTAR O FOR# | assign; | vardecl | exp ; | RETURN exp ; | WHILE ( exp ) body | IF ( exp ) body | IF ( exp ) body ELSE body
+# stm → FOR(exp;exp;exp) body | assign; | vardecl | exp ; | RETURN exp ; | WHILE ( exp ) body | IF ( exp ) body | IF ( exp ) body ELSE body
 #
 # assign → ID = exp | exp . ID = exp
 #
@@ -134,7 +134,7 @@ def p_sigparams_id_sigparams(p):
 
 #================== body =========================
 def p_body(p):
-    ''' body : L_CHAVES stms R_CHAVES '''
+    ''' body : L_CHAVE stms R_CHAVE '''
 
 #================== EXP =========================
 def p_exp_SOMA(p):
@@ -303,22 +303,22 @@ def p_exp_STRING_A(p):
 #================== vardecl =========================
 
 def p_vardecl(p):
-    ''' vardecl : LET ID PONTO_VIRGULA'''
+    ''' vardecl : LET ID PONTO_E_VIRGULA'''
     
 def p_vardecl_let(p):
-    ''' vardecl : LET ID ATRIBUICAO exp PONTO_VIRGULA'''
+    ''' vardecl : LET ID ATRIBUICAO exp PONTO_E_VIRGULA'''
     
 def p_vardecl_const(p):
-    ''' vardecl : CONST ID PONTO_VIRGULA'''
+    ''' vardecl : CONST ID PONTO_E_VIRGULA'''
     
 def p_vardecl_const_exp(p):
-    ''' vardecl : CONST ID ATRIBUICAO exp PONTO_VIRGULA'''
+    ''' vardecl : CONST ID ATRIBUICAO exp PONTO_E_VIRGULA'''
     
 def p_vardecl_var(p):
-    ''' vardecl : VAR ID PONTO_VIRGULA'''
+    ''' vardecl : VAR ID PONTO_E_VIRGULA'''
     
 def p_vardecl_var_exp(p):
-    ''' vardecl : VAR ID ATRIBUICAO exp PONTO_VIRGULA'''
+    ''' vardecl : VAR ID ATRIBUICAO exp PONTO_E_VIRGULA'''
 
 #================== stms =========================
 
@@ -328,15 +328,16 @@ def p_stms_stm_stms(p):
     ''' stms : stm stms '''
     
 #================== stm =========================
-
+def p_stm_for(p):
+    ''' stm : FOR L_PARENTESIS exp PONTO_E_VIRGULA exp PONTO_E_VIRGULA exp R_PARENTESIS body '''
 def p_stm_assign(p):
-    ''' stm : assign PONTO_VIRGULA '''
+    ''' stm : assign PONTO_E_VIRGULA '''
 def p_stm_vardecl(p):
     ''' stm : vardecl '''
 def p_stm_exp(p):
-    ''' stm : exp PONTO_VIRGULA '''
+    ''' stm : exp PONTO_E_VIRGULA '''
 def p_stm_return(p):
-    ''' stm : RETURN exp PONTO_VIRGULA '''
+    ''' stm : RETURN exp PONTO_E_VIRGULA '''
 def p_stm_while(p):
     ''' stm : WHILE L_PARENTESIS exp R_PARENTESIS body '''
 def p_stm_if(p):
