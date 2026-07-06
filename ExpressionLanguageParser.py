@@ -25,7 +25,7 @@
 # exp -> exp + exp | exp - exp | exp * exp | exp / exp | exp % exp | exp -- |
 #        exp ++ | ++ exp | -- exp |  exp ** exp | exp === exp | exp !== exp | exp & exp | 
 #        exp ^ exp | ' exp | exp ' | exp == exp | exp != exp |  exp > exp | exp < exp | exp >= exp | 
-#        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | olhar +exp | olhar -exp | exp ? exp : exp | 
+#        exp <= exp | exp && exp | exp || exp | !exp | ~exp | (exp) | +exp | -exp | exp ? exp : exp | 
 #        exp += exp | exp -= exp | exp *= exp | exp **= exp | exp /= exp | exp %= exp |
 #        exp <<= exp | exp >>= exp | exp >>>= exp | exp &= exp | exp ^= exp |  ' exp |= exp ' | 
 #        NEW ID () | NEW ID ( params ) | exp . ID | exp . call | THIS |
@@ -47,8 +47,8 @@
 
 import ply.yacc as yacc
 import ply.lex as lex
-from ExpressionLanguageLex import tokens
-import SintaxeAbstrata as sa
+from ExpressionLanguageLex import *
+import SintaxteAbstrata as sa
 
 #================== program =========================
 def p_program_funcdecl(p):
@@ -138,208 +138,237 @@ def p_body(p):
     ''' body : L_CHAVE stms R_CHAVE '''
 
 #================== EXP =========================
-def p_exp_SOMA(p):
-    ''' exp : exp SOMA exp '''
-    p[0] = sa.ExpSoma(p[1], p[3])
-    
-def p_exp_SUBTRACAO(p):
-    ''' exp : exp SUBTRACAO exp '''
-    p[0] = sa.ExpSubtracao(p[1], p[3])
-
-def p_exp_MULTIPLICACAO(p):
-    ''' exp : exp MULTIPLICACAO exp '''
-    p[0] = sa.ExpMultiplicacao(p[1], p[3])
-
-def p_exp_DIVISAO(p):
-    ''' exp : exp DIVISAO exp '''
-    p[0] = sa.ExpDivisao(p[1], p[3])
-
-def p_exp_RESTO(p):
-    ''' exp : exp RESTO exp '''
-    p[0] = sa.ExpResto(p[1], p[3])
-
-def p_exp_DECREMENTO(p):
-    ''' exp : exp DECREMENTO '''
-    p[0] = sa.ExpDecremento(p[1])
-    
-def p_exp_INCREMENTO(p):
-    ''' exp : exp INCREMENTO '''
-    p[0] = sa.ExpIncremento(p[1])
-
-def p_exp_expINCREMENTO(p):
-    ''' exp : INCREMENTO exp  '''
-    p[0] = sa.ExpIncrementoPrefixo(p[1])
-
-def p_exp_expDECREMENTO(p):
-    ''' exp : DECREMENTO exp  '''
-    p[0] = sa.ExpDecrementoPrefixo(p[1])
-
-def p_exp_EXPONENCIACAO(p):
-    ''' exp : exp EXPONENCIACAO exp '''
-    p[0] = sa.ExpPotencia(p[1], p[3])
-
-def p_exp_IGUAL_ESTRITA(p):
-    ''' exp : exp IGUAL_ESTRITA exp '''
-    p[0] = sa.ExpIgualdadeEstrita(p[1], p[3])
-
-def p_exp_DESIGUAL_ESTRITA(p):
-    ''' exp : exp DESIGUAL_ESTRITA exp '''
-    p[0] = sa.ExpDiferencaEstrita(p[1], p[3])
-
-def p_exp_AND_BITABIT(p):
-    ''' exp : exp AND_BITABIT exp '''
-    p[0] = sa.ExpEbit(p[1], p[3])
-
-def p_exp_XOR_BITABIT(p):
-    ''' exp : exp XOR_BITABIT exp '''
-    p[0] = sa.ExpXorbit(p[1], p[3])
-
-def p_exp_OR_BITABIT(p):
-    ''' exp : exp OR_BITABIT exp '''
-    p[0] = sa.ExpOUbit(p[1], p[3])
-
-def p_exp_IGUALDADE(p):
-    ''' exp : exp IGUALDADE exp '''
-    p[0] = sa.Expigualdade(p[1], p[3])
-
-def p_exp_DESIGUALDADE(p):
-    ''' exp : exp DESIGUALDADE exp '''
-    p[0] = sa.Expdiferenca(p[1], p[3])
-
-def p_exp_MAIOR(p):
-    ''' exp : exp MAIOR exp '''
-    p[0] = sa.Expmaior(p[1], p[3])
-
-def p_exp_MENOR(p):
-    ''' exp : exp MENOR exp '''
-    p[0] = sa.Expmenor(p[1], p[3])
-
-def p_exp_MAIOR_IGUAL(p):
-    ''' exp : exp MAIOR_IGUAL exp '''
-    p[0] = sa.Expmaiorigual(p[1], p[3])
-    
-def p_exp_MENOR_IGUAL(p):
-    ''' exp : exp MENOR_IGUAL exp '''
-    p[0] = sa.Expmenorigual(p[1], p[3])
-
-def p_exp_AND_LOGICO(p):
-    ''' exp : exp AND_LOGICO exp '''
-    p[0] = sa.ExpElogico(p[1], p[3])
-
-def p_exp_OR_LOGICO(p):
-    ''' exp : exp OR_LOGICO exp '''
-    p[0] = sa.ExpOUlogico(p[1], p[3])
-
-def p_exp_NAO_LOGICO(p):
-    ''' exp : NAO_LOGICO exp  '''
-    p[0] = sa.ExpNegacao(p[1])
-
-def p_exp_NAO_BITABIT(p):
-    ''' exp : NAO_BITABIT exp  '''
-    p[0] = sa.ExpNegacaoBit(p[1])
-
-def p_exp_AGRUPAMENTO(p):
-    ''' exp : L_PARENTESIS exp R_PARENTESIS '''
-    p[0] = sa.ExpParenteses(p[1])
-
-def p_exp_POSITIVO_UNARIO(p):
-    ''' exp : SOMA exp '''
-    p[0] = sa.ExpPositivo(p[1])
-
-def p_exp_NEGATIVO_UNARIO(p):
-    ''' exp : SUBTRACAO exp '''
-    p[0] = sa.ExpNegativo(p[1])
-
 def p_exp_TERNARIO(p):
-   ''' exp : exp INTERROGACAO exp DOIS_PONTOS exp '''
-   p[0] = sa.ExpTernario(p[1], p[3], p[5])
+    ''' exp : exp1 INTERROGACAO exp DOIS_PONTOS exp'''
 
-def p_exp_MAIS_IGUAL_exp(p):
-    ''' exp : exp MAIS_IGUAL exp'''
-    p[0] = sa.ExpMaisIgual(p[1], p[3])
+def p_exp_MAIS_IGUAL(p):
+    ''' exp : exp1 MAIS_IGUAL exp'''
 
-def p_exp_MENOS_IGUAL_exp(p):
-    ''' exp : exp MENOS_IGUAL exp'''
-    p[0] = sa.ExpMenosIgual(p[1], p[3])
+def p_exp_MENOS_IGUAL(p):
+    ''' exp : exp1 MENOS_IGUAL exp'''
 
-def p_exp_MULTIPLICACAO_IGUAL_exp(p):
-    ''' exp : exp MULTIPLICACAO_IGUAL exp'''
-    p[0] = sa.ExpMultiplicacaoIgual(p[1], p[3])
+def p_exp_MULTIPLICACAO_IGUAL(p):
+    ''' exp : exp1 MULTIPLICACAO_IGUAL exp'''
 
-def p_exp_EXPONENCIACAO_IGUAL_exp(p):
-    ''' exp : exp EXPONENCIACAO_IGUAL exp'''
-    p[0] = sa.ExpPotenciaIgual(p[1], p[3])
+def p_exp_EXPONENCIACAO_IGUAL(p):
+    ''' exp : exp1 EXPONENCIACAO_IGUAL exp'''
 
-def p_exp_DIVISAO_IGUAL_exp(p):
-    ''' exp : exp DIVISAO_IGUAL exp'''
-    p[0] = sa.ExpDivisaoIgual(p[1], p[3])
+def p_exp_DIVISAO_IGUAL(p):
+    ''' exp : exp1 DIVISAO_IGUAL exp'''
 
-def p_exp_RESTO_IGUAL_exp(p):
-    ''' exp : exp RESTO_IGUAL exp'''
-    p[0] = sa.ExpRestoIgual(p[1], p[3])
+def p_exp_RESTO_IGUAL(p):
+    ''' exp : exp1 RESTO_IGUAL exp'''
 
-def p_exp_DESLOC_E_IGUAL_exp(p):
-    ''' exp : exp DESLOC_E_IGUAL exp'''
-    p[0] = sa.ExpDeslocamentoEsquerdaIgual(p[1], p[3])
+def p_exp_DESLOC_E_IGUAL(p):
+    ''' exp : exp1 DESLOC_E_IGUAL exp'''
 
-def p_exp_DESLOC_D_IGUAL_exp(p):
-    ''' exp : exp DESLOC_D_IGUAL exp'''
-    p[0] = sa.ExpDeslocamentoDireitaIgual(p[1], p[3])
+def p_exp_DESLOC_D_IGUAL(p):
+    ''' exp : exp1 DESLOC_D_IGUAL exp'''
 
-def p_exp_DESLOC_D_S_IGUAL_exp(p):
-    ''' exp : exp DESLOC_D_S_IGUAL exp'''
-    p[0] = sa.ExpDeslocamentoDireitaSemSinalIgual(p[1], p[3])
+def p_exp_DESLOC_D_S_IGUAL(p):
+    ''' exp : exp1 DESLOC_D_S_IGUAL exp'''
 
-def p_exp_AND_BIT_IGUAL_exp(p):
-    ''' exp : exp AND_BIT_IGUAL exp'''
-    p[0] = sa.ExpEbitIgual(p[1], p[3])
+def p_exp_AND_BIT_IGUAL(p):
+    ''' exp : exp1 AND_BIT_IGUAL exp'''
 
-def p_exp_XOR_BIT_IGUAL_exp(p):
-    ''' exp : exp XOR_BIT_IGUAL exp'''  
-    p[0] = sa.ExpXorbitIgual(p[1], p[3])
+def p_exp_XOR_BIT_IGUAL(p):
+    ''' exp : exp1 XOR_BIT_IGUAL exp'''
 
-def p_exp_OR_BIT_IGUAL_exp(p):
-    ''' exp : exp OR_BIT_IGUAL exp'''  
-#COMEÇAR DAQUI
-# exp . ID | exp . call | THIS |
-def p_exp_NEW_ID_NOparams(p):
-    ''' exp : NEW ID L_PARENTESIS R_PARENTESIS'''
+def p_exp1_OR_BIT_IGUAL(p):
+    ''' exp : exp1 OR_BIT_IGUAL exp'''
 
-def p_exp_NEW_ID_params(p):
-    ''' exp : NEW ID L_PARENTESIS params R_PARENTESIS'''
-    
-def p_exp_exp_ID(p):
-    ''' exp : exp ACESSO_MEMBRO ID'''
+def p_exp_exp1(p):
+    ''' exp : exp1'''
 
-def p_exp_exp_call(p):
-    ''' exp : exp ACESSO_MEMBRO call'''
+#------------------------------------
 
-def p_exp_THIS(p):
-    ''' exp : THIS'''
-#FINALIZA AQUI
-def p_exp_INT_LITERAL(p):
-    ''' exp : INT_LITERAL'''
+def p_exp1_OR_LOGICO(p):
+    ''' exp1 : exp1 OR_LOGICO exp2'''
 
-def p_exp_ID(p):
-   ''' exp : ID '''
+def p_exp1_exp2(p):
+    ''' exp1 : exp2'''
 
-def p_exp_CALL(p):
-   ''' exp : call '''
+#------------------------------------
 
-def p_exp_ASSIGN(p):
-   ''' exp : assign '''
+def p_exp2_AND_LOGICO(p):
+    ''' exp2 : exp2 AND_LOGICO exp3'''
 
-def p_exp_TRUE(p):
-   ''' exp : TRUE '''
+def p_exp2_exp3(p):
+    ''' exp2 : exp3'''
 
-def p_exp_FALSE(p):
-   ''' exp : FALSE '''
-   
-def p_exp_STRING_AD(p):
-   ''' exp : STRING_AD '''
+#------------------------------------
 
-def p_exp_STRING_A(p):
-   ''' exp : STRING_A '''
+def p_exp3_OR_BITABIT(p):
+    ''' exp3 : exp3 OR_BITABIT exp4 '''
+
+def p_exp3_exp4(p):
+    ''' exp3 : exp4 '''
+
+#------------------------------------
+
+def p_exp4_XOR_BITABIT(p):
+    ''' exp4 : exp4 XOR_BITABIT exp5 '''
+
+def p_exp4_exp5(p):
+    ''' exp4 : exp5 '''
+
+#------------------------------------
+
+def p_exp5_AND_BITABIT(p):
+    ''' exp5 : exp5 AND_BITABIT exp6 '''
+
+def p_exp5_exp6(p):
+    ''' exp5 : exp6 '''
+
+#------------------------------------
+
+def p_exp6_IGUALDADE(p):
+    ''' exp6 : exp6 IGUALDADE exp7 '''
+
+def p_exp6_DESIGUALDADE(p):
+    ''' exp6 : exp6 DESIGUALDADE exp7 '''
+
+def p_exp6_IGUAL_ESTRITA(p):
+    ''' exp6 : exp6 IGUAL_ESTRITA exp7 '''
+
+def p_exp6_DESIGUAL_ESTRITA(p):
+    ''' exp6 : exp6 DESIGUAL_ESTRITA exp7 '''
+
+def p_exp6_exp7(p):
+    ''' exp6 : exp7 '''
+
+#------------------------------------
+
+def p_exp7_MAIOR(p):
+    ''' exp7 : exp7 MAIOR exp8 '''
+
+def p_exp7_MENOR(p):
+    ''' exp7 : exp7 MENOR exp8 '''
+
+def p_exp7_MAIOR_IGUAL(p):
+    ''' exp7 : exp7 MAIOR_IGUAL exp8 '''
+
+def p_exp7_MENOR_IGUAL(p):
+    ''' exp7 : exp7 MENOR_IGUAL exp8 '''
+
+def p_exp7_exp8(p):
+    ''' exp7 : exp8 '''
+
+#------------------------------------
+
+def p_exp8_SOMA(p):
+    ''' exp8 : exp8 SOMA exp9 '''
+
+def p_exp8_SUBTRACAO(p):
+    ''' exp8 : exp8 SUBTRACAO exp9 '''
+
+def p_exp8_exp9(p):
+    ''' exp8 : exp9 '''
+
+#------------------------------------
+
+def p_exp9_MULTIPLICACAO(p):
+    ''' exp9 : exp9 MULTIPLICACAO exp10 '''
+
+def p_exp9_DIVISAO(p):
+    ''' exp9 : exp9 DIVISAO exp10 '''
+
+def p_exp9_RESTO(p):
+    ''' exp9 : exp9 RESTO exp10 '''
+
+def p_exp9_exp10(p):
+    ''' exp9 : exp10 '''
+
+#------------------------------------
+
+def p_exp10_EXPONENCIACAO(p):
+    ''' exp10 : exp11 EXPONENCIACAO exp10 '''
+
+def p_exp10_exp11(p):
+    ''' exp10 : exp11 '''
+
+#------------------------------------
+
+def p_exp11_INCREMENTO_PREFIXO(p):
+    ''' exp11 : INCREMENTO exp11 '''
+
+def p_exp11_DECREMENTO_PREFIXO(p):
+    ''' exp11 : DECREMENTO exp11 '''
+
+def p_exp11_NAO_LOGICO(p):
+    ''' exp11 : NAO_LOGICO exp11 '''
+
+def p_exp11_NAO_BITABIT(p):
+    ''' exp11 : NAO_BITABIT exp11 '''
+
+def p_exp11_MAIS_UNARIO(p):
+    ''' exp11 : SOMA exp11 '''
+
+def p_exp11_MENOS_UNARIO(p):
+    ''' exp11 : SUBTRACAO exp11 '''
+
+def p_exp11_exp12(p):
+    ''' exp11 : exp12 '''
+
+#------------------------------------
+
+def p_exp12_INCREMENTO_SUFIXO(p):
+    ''' exp12 : exp12 INCREMENTO '''
+
+def p_exp12_DECREMENTO_SUFIXO(p):
+    ''' exp12 : exp12 DECREMENTO '''
+
+def p_exp12_exp13(p):
+    ''' exp12 : exp13 '''
+
+#------------------------------------
+
+def p_exp13_ACESSO_ID(p):
+    ''' exp13 : exp13 ACESSO_MEMBRO ID '''
+
+def p_exp13_ACESSO_CALL(p):
+    ''' exp13 : exp13 ACESSO_MEMBRO call '''
+
+def p_exp13_exp14(p):
+    ''' exp13 : exp14 '''
+
+#------------------------------------
+
+def p_exp14_NEW_VAZIO(p):
+    ''' exp14 : NEW ID L_PARENTESIS R_PARENTESIS '''
+
+def p_exp14_NEW_PARAMS(p):
+    ''' exp14 : NEW ID L_PARENTESIS params R_PARENTESIS '''
+
+def p_exp14_THIS(p):
+    ''' exp14 : THIS '''
+
+def p_exp14_NUM(p):
+    ''' exp14 : INT_LITERAL '''
+
+def p_exp14_ID(p):
+    ''' exp14 : ID '''
+
+def p_exp14_CALL(p):
+    ''' exp14 : call '''
+
+def p_exp14_ASSIGN(p):
+    ''' exp14 : assign '''
+
+def p_exp14_TRUE(p):
+    ''' exp14 : TRUE '''
+
+def p_exp14_FALSE(p):
+    ''' exp14 : FALSE '''
+
+def p_exp14_STRING_AD(p):
+    ''' exp14 : STRING_AD '''
+
+def p_exp14_STRING_A(p):
+    ''' exp14 : STRING_A '''
+
+def p_exp14_AGRUPAMENTO(p):
+    ''' exp14 : L_PARENTESIS exp R_PARENTESIS '''
 
 #================== vardecl =========================
 
@@ -409,6 +438,31 @@ def p_call_exp_ID_NOParams(p):
     
 #================== params =========================
 def p_params_exp_params(p):
-    ''' params : exp VIRGULA param'''
+    ''' params : exp VIRGULA params'''
 def p_params_exp(p):
     ''' params : exp '''
+
+
+data2 = '''
+function some (a, b){ 
+    a = 88 + 44; 
+    b = 70; 
+    sumparabola(1, 2, 3); 
+    if (b==70){     
+        while (true){ 
+            c = 38; 
+            sumparabola(5, true, false); 
+            while (c){ 
+                sumparabola(5, true, true); 
+            } 
+        }
+    } 
+    soma(); 
+    sumparabolac(2); 
+    return true; 
+}
+'''
+if __name__ == '__main__':
+    lexer.input(data2)
+    parser = yacc.yacc()
+    parser.parse(debug=True)
