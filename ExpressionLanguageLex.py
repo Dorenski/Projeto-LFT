@@ -242,21 +242,4 @@ def t_error(t):
     print(f'Caractere ilegal: {t.value[0]}')
     t.lexer.skip(1)
 
-def main():
-    lexer = lex.lex()
-
-    data = '''
-    let x = 10;
-    console.log(x)'''
-
-    lexer.input(data)
-
-    while True:
-        tok = lexer.token()
-
-        if not tok:
-            break
-
-        print(tok)
-        
-main()
+lexer = lex.lex()
