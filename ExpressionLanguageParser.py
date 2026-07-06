@@ -48,6 +48,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 from ExpressionLanguageLex import tokens
+import SintaxeAbstrata as sa
 
 #================== program =========================
 def p_program_funcdecl(p):
@@ -139,123 +140,163 @@ def p_body(p):
 #================== EXP =========================
 def p_exp_SOMA(p):
     ''' exp : exp SOMA exp '''
+    p[0] = sa.ExpSoma(p[1], p[3])
     
 def p_exp_SUBTRACAO(p):
     ''' exp : exp SUBTRACAO exp '''
+    p[0] = sa.ExpSubtracao(p[1], p[3])
 
 def p_exp_MULTIPLICACAO(p):
     ''' exp : exp MULTIPLICACAO exp '''
+    p[0] = sa.ExpMultiplicacao(p[1], p[3])
 
 def p_exp_DIVISAO(p):
     ''' exp : exp DIVISAO exp '''
+    p[0] = sa.ExpDivisao(p[1], p[3])
 
 def p_exp_RESTO(p):
     ''' exp : exp RESTO exp '''
+    p[0] = sa.ExpResto(p[1], p[3])
 
 def p_exp_DECREMENTO(p):
     ''' exp : exp DECREMENTO '''
+    p[0] = sa.ExpDecremento(p[1])
     
 def p_exp_INCREMENTO(p):
     ''' exp : exp INCREMENTO '''
+    p[0] = sa.ExpIncremento(p[1])
 
 def p_exp_expINCREMENTO(p):
     ''' exp : INCREMENTO exp  '''
+    p[0] = sa.ExpIncrementoPrefixo(p[1])
 
 def p_exp_expDECREMENTO(p):
     ''' exp : DECREMENTO exp  '''
+    p[0] = sa.ExpDecrementoPrefixo(p[1])
 
 def p_exp_EXPONENCIACAO(p):
     ''' exp : exp EXPONENCIACAO exp '''
+    p[0] = sa.ExpPotencia(p[1], p[3])
 
 def p_exp_IGUAL_ESTRITA(p):
     ''' exp : exp IGUAL_ESTRITA exp '''
+    p[0] = sa.ExpIgualdadeEstrita(p[1], p[3])
 
 def p_exp_DESIGUAL_ESTRITA(p):
     ''' exp : exp DESIGUAL_ESTRITA exp '''
+    p[0] = sa.ExpDiferencaEstrita(p[1], p[3])
 
 def p_exp_AND_BITABIT(p):
     ''' exp : exp AND_BITABIT exp '''
+    p[0] = sa.ExpEbit(p[1], p[3])
 
 def p_exp_XOR_BITABIT(p):
     ''' exp : exp XOR_BITABIT exp '''
+    p[0] = sa.ExpXorbit(p[1], p[3])
 
 def p_exp_OR_BITABIT(p):
     ''' exp : exp OR_BITABIT exp '''
+    p[0] = sa.ExpOUbit(p[1], p[3])
 
 def p_exp_IGUALDADE(p):
     ''' exp : exp IGUALDADE exp '''
+    p[0] = sa.Expigualdade(p[1], p[3])
 
 def p_exp_DESIGUALDADE(p):
     ''' exp : exp DESIGUALDADE exp '''
+    p[0] = sa.Expdiferenca(p[1], p[3])
 
 def p_exp_MAIOR(p):
     ''' exp : exp MAIOR exp '''
+    p[0] = sa.Expmaior(p[1], p[3])
 
 def p_exp_MENOR(p):
     ''' exp : exp MENOR exp '''
+    p[0] = sa.Expmenor(p[1], p[3])
 
 def p_exp_MAIOR_IGUAL(p):
     ''' exp : exp MAIOR_IGUAL exp '''
-
+    p[0] = sa.Expmaiorigual(p[1], p[3])
+    
 def p_exp_MENOR_IGUAL(p):
     ''' exp : exp MENOR_IGUAL exp '''
+    p[0] = sa.Expmenorigual(p[1], p[3])
 
 def p_exp_AND_LOGICO(p):
     ''' exp : exp AND_LOGICO exp '''
+    p[0] = sa.ExpElogico(p[1], p[3])
 
 def p_exp_OR_LOGICO(p):
     ''' exp : exp OR_LOGICO exp '''
+    p[0] = sa.ExpOUlogico(p[1], p[3])
 
 def p_exp_NAO_LOGICO(p):
     ''' exp : NAO_LOGICO exp  '''
+    p[0] = sa.ExpNegacao(p[1])
 
 def p_exp_NAO_BITABIT(p):
     ''' exp : NAO_BITABIT exp  '''
+    p[0] = sa.ExpNegacaoBit(p[1])
 
 def p_exp_AGRUPAMENTO(p):
     ''' exp : L_PARENTESIS exp R_PARENTESIS '''
+    p[0] = sa.ExpParenteses(p[1])
 
 def p_exp_POSITIVO_UNARIO(p):
     ''' exp : SOMA exp '''
+    p[0] = sa.ExpPositivo(p[1])
 
 def p_exp_NEGATIVO_UNARIO(p):
     ''' exp : SUBTRACAO exp '''
+    p[0] = sa.ExpNegativo(p[1])
 
 def p_exp_TERNARIO(p):
    ''' exp : exp INTERROGACAO exp DOIS_PONTOS exp '''
+   p[0] = sa.ExpTernario(p[1], p[3], p[5])
 
 def p_exp_MAIS_IGUAL_exp(p):
     ''' exp : exp MAIS_IGUAL exp'''
+    p[0] = sa.ExpMaisIgual(p[1], p[3])
 
 def p_exp_MENOS_IGUAL_exp(p):
     ''' exp : exp MENOS_IGUAL exp'''
+    p[0] = sa.ExpMenosIgual(p[1], p[3])
 
 def p_exp_MULTIPLICACAO_IGUAL_exp(p):
     ''' exp : exp MULTIPLICACAO_IGUAL exp'''
+    p[0] = sa.ExpMultiplicacaoIgual(p[1], p[3])
 
 def p_exp_EXPONENCIACAO_IGUAL_exp(p):
     ''' exp : exp EXPONENCIACAO_IGUAL exp'''
+    p[0] = sa.ExpPotenciaIgual(p[1], p[3])
 
 def p_exp_DIVISAO_IGUAL_exp(p):
     ''' exp : exp DIVISAO_IGUAL exp'''
+    p[0] = sa.ExpDivisaoIgual(p[1], p[3])
 
 def p_exp_RESTO_IGUAL_exp(p):
     ''' exp : exp RESTO_IGUAL exp'''
+    p[0] = sa.ExpRestoIgual(p[1], p[3])
 
 def p_exp_DESLOC_E_IGUAL_exp(p):
     ''' exp : exp DESLOC_E_IGUAL exp'''
+    p[0] = sa.ExpDeslocamentoEsquerdaIgual(p[1], p[3])
 
 def p_exp_DESLOC_D_IGUAL_exp(p):
     ''' exp : exp DESLOC_D_IGUAL exp'''
+    p[0] = sa.ExpDeslocamentoDireitaIgual(p[1], p[3])
 
 def p_exp_DESLOC_D_S_IGUAL_exp(p):
     ''' exp : exp DESLOC_D_S_IGUAL exp'''
+    p[0] = sa.ExpDeslocamentoDireitaSemSinalIgual(p[1], p[3])
 
 def p_exp_AND_BIT_IGUAL_exp(p):
     ''' exp : exp AND_BIT_IGUAL exp'''
+    p[0] = sa.ExpEbitIgual(p[1], p[3])
 
 def p_exp_XOR_BIT_IGUAL_exp(p):
     ''' exp : exp XOR_BIT_IGUAL exp'''  
+    p[0] = sa.ExpXorbitIgual(p[1], p[3])
 
 def p_exp_OR_BIT_IGUAL_exp(p):
     ''' exp : exp OR_BIT_IGUAL exp'''  
