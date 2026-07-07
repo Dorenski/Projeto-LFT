@@ -314,62 +314,62 @@ def p_exp11_exp12(p):
 
 def p_exp12_INCREMENTO_SUFIXO(p):
     ''' exp12 : exp12 INCREMENTO '''
-
+    p[0] = sa.Exp(p[1])
 def p_exp12_DECREMENTO_SUFIXO(p):
     ''' exp12 : exp12 DECREMENTO '''
-
+    p[0] = sa.Exp(p[1])
 def p_exp12_exp13(p):
     ''' exp12 : exp13 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp13_ACESSO_ID(p):
     ''' exp13 : exp13 ACESSO_MEMBRO ID '''
-
+    p[0] = sa.ExpAcessoAtributo(p[1], p[2], p[3])
 def p_exp13_ACESSO_CALL(p):
     ''' exp13 : exp13 ACESSO_MEMBRO call '''
-
+    p[0] = sa.ExpAcessoMetodo(p[1], p[2], p[3])
 def p_exp13_exp14(p):
     ''' exp13 : exp14 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp14_NEW_VAZIO(p):
     ''' exp14 : NEW ID L_PARENTESIS R_PARENTESIS '''
-
+    p[0] = sa.ExpNewSemParametro(p[1])
 def p_exp14_NEW_PARAMS(p):
     ''' exp14 : NEW ID L_PARENTESIS params R_PARENTESIS '''
-
+    p[0] = sa.ExpNewComParametro(p[2],p[4])
 def p_exp14_THIS(p):
     ''' exp14 : THIS '''
-
+#    p[0] = sa.Exp(p[1])
 def p_exp14_NUM(p):
     ''' exp14 : INT_LITERAL '''
-
+    p[0] = sa.ExpNum(p[1])
 def p_exp14_ID(p):
     ''' exp14 : ID '''
-
+    p[0] = sa.ExpId(p[1])
 def p_exp14_CALL(p):
     ''' exp14 : call '''
-
+    p[0] = sa.ExpCall(p[1])
 def p_exp14_ASSIGN(p):
     ''' exp14 : assign '''
-
+    p[0] = sa.ExpAssign(p[1])
 def p_exp14_TRUE(p):
     ''' exp14 : TRUE '''
-
+#    p[0] = sa.Exp(p[1])
 def p_exp14_FALSE(p):
     ''' exp14 : FALSE '''
-
+#    p[0] = sa.Exp(p[1])
 def p_exp14_STRING_AD(p):
     ''' exp14 : STRING_AD '''
-
+#    p[0] = sa.Exp(p[1])
 def p_exp14_STRING_A(p):
     ''' exp14 : STRING_A '''
-
+#    p[0] = sa.Exp(p[1])
 def p_exp14_AGRUPAMENTO(p):
     ''' exp14 : L_PARENTESIS exp R_PARENTESIS '''
-
+    p[0] = sa.ExpParenteses(p[1])
 #================== vardecl =========================
 
 def p_vardecl(p):

@@ -538,7 +538,7 @@ class ExpAcessoMetodo(Exp):
     def __init__(self, exp, type, params):
         self.exp = exp
         self.type = type
-        self.params = params
+        self.call = params
     def accept(self, visitor): 
         return visitor.visitExpAcessoMetodo(self)
 
