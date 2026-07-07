@@ -214,7 +214,25 @@ class SemParametroSignature(Signature):
         self.type = type
     def accept(self, visitor): 
         return visitor.visitSemParametroSignature(self)
-    
+#================== sigparams =========================
+class Sigparams(metaclass=ABCMeta):
+    @abstractmethod
+    def accept(self, visitor):
+        pass
+
+class Umsigparams(Sigparams):
+    def __init__(self, type, sigparams):
+        self.type = type
+    def accept(self, visitor): 
+        return visitor.visitUmsigparams(self)
+
+class MaisdeUmsigparams(Sigparams):
+        def __init__(self, type, sigparams):
+        self.type = type
+        self.sigparams = sigparams
+    def accept(self, visitor): 
+        return visitor.visitMaisdeUmsigparams(self)
+
 #================== body =========================
 
 class Body(metaclass=ABCMeta):
@@ -639,13 +657,13 @@ class Stms(metaclass=ABCMeta):
     def accept(self, visitor):
         pass    
 
-class Umstm(Stms):
+class Umstms(Stms):
     def __init__(self, stm):
         self.stm = stm
     def accept(self, visitor): 
         return visitor.visitUmstm(self)
     
-class MaisdeUmstm(Stms):
+class MaisdeUmstms(Stms):
     def __init__(self, stm, stms):
         self.stm = stm
         self.stms = stms
@@ -778,13 +796,13 @@ class Params(metaclass=ABCMeta):
     def accept(self, visitor):
         pass
 
-class Umparam(Params):
+class Umparams(Params):
     def __init__(self, exp):
         self.exp = exp
     def accept(self, visitor): 
         return visitor.visitUmparam(self)
 
-class MaisdeUmparam(Params):
+class MaisdeUmparams(Params):
     def __init__(self, exp, params):
         self.exp = exp
         self.params = params

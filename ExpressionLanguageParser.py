@@ -53,130 +53,130 @@ import SintaxteAbstrata as sa
 #================== program =========================
 def p_program_funcdecl(p):
     ''' program : funcdecl '''
-
+    p[0] = sa.Umfuncdecl(p[1])
 def p_program_funcdecl_program(p):
     ''' program : funcdecl program '''
-
+    p[0] = sa.MaisdeUmfuncdecl(p[1], p[2])
 def p_program_vardecl(p):
     ''' program : vardecl '''
-
+    p[0] = sa.Umvardecl(p[1])
 def p_program_vardecl_program(p):
     ''' program : vardecl program '''
-
+    p[0] = sa.MaisdeUmvardecl(p[1], p[2])
 def p_program_classdecl(p):
     '''program : classdecl '''
-    
+    p[0] = sa.Umclassdecl(p[1])
 def p_program_classdecl_program(p):
     '''program : classdecl program '''
-
+    p[0] = sa.MaisdeUmclassdecl(p[1], p[2])
 #================== classdecl =========================
 def p_classdecl_CLASS_ID_classbody(p):
     '''classdecl : CLASS ID classbody '''
-    
+    p[0] = sa.concretoClassdecl(p[2], p[3])
 #================== classbody =========================
 def p_classbody_classmembers(p):
     '''classbody : L_CHAVE classmembers R_CHAVE '''
-
+    p[0] = sa.concretoClassbody(p[2])
 #================== classmembers =========================
 def p_classmembers_classmember(p):
     '''classmembers : classmember '''
-
+    p[0] = sa.Umclassmember(p[1])
 def p_classmembers_classmembers(p):
     '''classmembers : classmember classmembers '''
-
+    p[0] = sa.MaisdeUmclassmember(p[1], p[2])
 #================== classmember =========================
 def p_classmember_methoddecl(p):
     '''classmember : methoddecl '''
-
+    p[0] = sa.methodClassmember(p[1])
 def p_classmember_constructordecl(p):
     '''classmember : constructordecl '''
-
+    p[0] = sa.constructorClassmember(p[1])
 def p_classmember_attrdecl(p):
     '''classmember : attrdecl '''
-
+    p[0] = sa.attrClassmember(p[1])
 #================== constructordecl =========================   
 def p_constructordecl_sigparams(p):
     '''constructordecl : CONSTRUCTOR L_PARENTESIS sigparams R_PARENTESIS body '''
-    
+    p[0] = sa.ParametroConstrutordecl(p[3], p[5])
 def p_constructordecl_NOsigparams(p):
     '''constructordecl : CONSTRUCTOR L_PARENTESIS  R_PARENTESIS body '''
-    
+    p[0] = sa.SemParametroConstrutordecl(p[4])
 #================== methoddecl =========================
 def p_methoddecl_sigparams(p):
     '''methoddecl : ID L_PARENTESIS sigparams R_PARENTESIS body '''
-    
+    p[0] = sa.ParametroMethoddecl(p[1], p[3], p[5])
 def p_methoddecl_NOsigparams(p):
     '''methoddecl : ID L_PARENTESIS R_PARENTESIS body '''
-
+    p[0] = sa.SemParametroMethoddecl(p[1], p[4])
 #================== attrdecl =========================
 def p_attrdecl_ID(p):
     ''' attrdecl : ID PONTO_E_VIRGULA '''
-    
+    p[0] = sa.SemValorAttrdecl(p[1])
 def p_attrdecl_exp(p):
     ''' attrdecl : ID ATRIBUICAO exp PONTO_E_VIRGULA '''
-
+    p[0] = sa.ComValorAttrdecl(p[1], p[3])
 #================== funcdecl =========================
 def p_funcdecl(p):
     ''' funcdecl : signature body '''
-
+    p[0] = sa.concretoFuncdecl(p[2])
 #================== signature =========================
 def p_signature_sigparams(p):
     ''' signature : FUNCTION ID L_PARENTESIS sigparams R_PARENTESIS '''
-
+    p[0] = sa.ParametroSignature(p[2], p[4])
 def p_signature_NOsigparams(p):
     ''' signature : FUNCTION ID L_PARENTESIS R_PARENTESIS '''
-    
+    p[0] = sa.SemParametroSignature(p[2])
 #================== sigparams =========================
 def p_sigparams_id(p):
     ''' sigparams : ID '''  
-    
+    p[0] = sa.Umsigparams(p[1])
 def p_sigparams_id_sigparams(p):
     ''' sigparams : ID VIRGULA sigparams '''
-
+    p[0] = sa.MaisdeUmsigparams(p[1], p[3])
 #================== body =========================
 def p_body(p):
     ''' body : L_CHAVE stms R_CHAVE '''
-
+    p[0] = sa.concretoBody(p[2])
 #================== EXP =========================
 def p_exp_TERNARIO(p):
     ''' exp : exp1 INTERROGACAO exp DOIS_PONTOS exp'''
-
+    p[0] = sa.ExpTernario(p[1], p[3], p[5])
 def p_exp_MAIS_IGUAL(p):
     ''' exp : exp1 MAIS_IGUAL exp'''
-
+    p[0] = sa.ExpMaisIgual(p[1], p[3])
 def p_exp_MENOS_IGUAL(p):
     ''' exp : exp1 MENOS_IGUAL exp'''
-
+    p[0] = sa.ExpMenosIgual(p[1], p[3])
 def p_exp_MULTIPLICACAO_IGUAL(p):
     ''' exp : exp1 MULTIPLICACAO_IGUAL exp'''
-
+    p[0] = sa.ExpMultiplicacaoIgual(p[1], p[3])
 def p_exp_EXPONENCIACAO_IGUAL(p):
     ''' exp : exp1 EXPONENCIACAO_IGUAL exp'''
-
+    p[0] = sa.ExpPotencia(p[1], p[3])
 def p_exp_DIVISAO_IGUAL(p):
     ''' exp : exp1 DIVISAO_IGUAL exp'''
-
+    p[0] = sa.ExpDivisaoIgual(p[1], p[3])
 def p_exp_RESTO_IGUAL(p):
     ''' exp : exp1 RESTO_IGUAL exp'''
-
+    p[0] = sa.ExpRestoIgual(p[1], p[3])
 def p_exp_DESLOC_E_IGUAL(p):
     ''' exp : exp1 DESLOC_E_IGUAL exp'''
-
+    p[0] = sa.ExpDeslocamentoEsquerdaIgual(p[1], p[3])
 def p_exp_DESLOC_D_IGUAL(p):
     ''' exp : exp1 DESLOC_D_IGUAL exp'''
-
+    p[0] = sa.ExpDeslocamentoDireitaIgual(p[1], p[3])
 def p_exp_DESLOC_D_S_IGUAL(p):
     ''' exp : exp1 DESLOC_D_S_IGUAL exp'''
-
+    p[0] = sa.ExpDeslocamentoDireitaSemSinalIgual(p[1], p[3])
 def p_exp_AND_BIT_IGUAL(p):
     ''' exp : exp1 AND_BIT_IGUAL exp'''
-
+    p[0] = sa.ExpEbitIgual(p[1], p[3])
 def p_exp_XOR_BIT_IGUAL(p):
     ''' exp : exp1 XOR_BIT_IGUAL exp'''
-
+    p[0] = sa.ExpXorbitIgual(p[1], p[3])
 def p_exp1_OR_BIT_IGUAL(p):
     ''' exp : exp1 OR_BIT_IGUAL exp'''
-
+    p[0] = sa.ExpOUbitIgual(p[1], p[3])
 def p_exp_exp1(p):
     ''' exp : exp1'''
     p[0] = p[1]
@@ -184,7 +184,7 @@ def p_exp_exp1(p):
 
 def p_exp1_OR_LOGICO(p):
     ''' exp1 : exp1 OR_LOGICO exp2'''
-    p[0] = sa.Exp(p[1], p[3])
+    p[0] = sa.ExpOUlogico(p[1], p[3])
 def p_exp1_exp2(p):
     ''' exp1 : exp2'''
     p[0] = p[1]
@@ -192,7 +192,7 @@ def p_exp1_exp2(p):
 
 def p_exp2_AND_LOGICO(p):
     ''' exp2 : exp2 AND_LOGICO exp3'''
-    p[0] = sa.Exp(p[1], p[3])
+    p[0] = sa.ExpElogico(p[1], p[3])
 def p_exp2_exp3(p):
     ''' exp2 : exp3'''
     p[0] = p[1]
@@ -369,79 +369,87 @@ def p_exp14_STRING_A(p):
 #    p[0] = sa.Exp(p[1])
 def p_exp14_AGRUPAMENTO(p):
     ''' exp14 : L_PARENTESIS exp R_PARENTESIS '''
-    p[0] = sa.ExpParenteses(p[1])
+    p[0] = sa.ExpParenteses(p[2])
 #================== vardecl =========================
 
 def p_vardecl(p):
     ''' vardecl : LET ID PONTO_E_VIRGULA'''
-    
+    p[0] = sa.LetSemValorVardecl(p[2])
 def p_vardecl_let(p):
     ''' vardecl : LET ID ATRIBUICAO exp PONTO_E_VIRGULA'''
-    
+    p[0] = sa.VarSemValorVardecl(p[2], p[4])
 def p_vardecl_const(p):
     ''' vardecl : CONST ID PONTO_E_VIRGULA'''
-    
+    p[0] = sa.ConstSemValorVardecl(p[2])
 def p_vardecl_const_exp(p):
     ''' vardecl : CONST ID ATRIBUICAO exp PONTO_E_VIRGULA'''
-    
+    p[0] = sa.ConstComValorVardecl(p[2], p[4])
 def p_vardecl_var(p):
     ''' vardecl : VAR ID PONTO_E_VIRGULA'''
-    
+    p[0] = sa.VarSemValorVardecl(p[2])
 def p_vardecl_var_exp(p):
     ''' vardecl : VAR ID ATRIBUICAO exp PONTO_E_VIRGULA'''
-
+    p[0] = sa.VarComValorVardecl(p[2], p[4])
 #================== stms =========================
 
 def p_stms_stm(p):
     ''' stms : stm '''
+    p[0] = sa.Umstms(p[1])
 def p_stms_stm_stms(p):
     ''' stms : stm stms '''
-    
+    p[0] = sa.MaisdeUmstms(p[1], p[2])
 #================== stm =========================
 def p_stm_for(p):
     ''' stm : FOR L_PARENTESIS exp PONTO_E_VIRGULA exp PONTO_E_VIRGULA exp R_PARENTESIS body '''
+    p[0] = sa.ForStm(p[3], p[5], p[7], p[9])
 def p_stm_assign(p):
     ''' stm : assign PONTO_E_VIRGULA '''
+    p[0] = sa.AssignStm(p[1])
 def p_stm_vardecl(p):
     ''' stm : vardecl '''
+    p[0] = sa.VardeclStm(p[1])
 def p_stm_exp(p):
     ''' stm : exp PONTO_E_VIRGULA '''
+    p[0] = sa.ExpStm(p[1])
 def p_stm_return(p):
     ''' stm : RETURN exp PONTO_E_VIRGULA '''
+    p[0] = sa.ReturnStm(p[2])
 def p_stm_while(p):
     ''' stm : WHILE L_PARENTESIS exp R_PARENTESIS body '''
+    p[0] = sa.WhileStm(p[3], p[5])
 def p_stm_if(p):
     ''' stm : IF L_PARENTESIS exp R_PARENTESIS body '''
+    p[0] = sa.IfStm(p[3], p[5])
 def p_stm_if_else(p):
     ''' stm : IF L_PARENTESIS exp R_PARENTESIS body ELSE body '''
-
-
-
+    p[0] = sa.IfElseStm(p[3], p[5], p[7])
 #================== assign =========================
 def p_assign_ID(p):
     ''' assign : ID ATRIBUICAO exp '''
-    
+    p[0] = sa.AtribuicaoSimples(p[1], p[3])
 def p_assign_exp_ID(p):
     ''' assign : exp ACESSO_MEMBRO ID ATRIBUICAO exp '''
+    p[0] = sa.AtribuicaoAtributo(p[1], p[3], p[5])
 #================== call =========================
 def p_call_ID_Params(p):
     ''' call : ID L_PARENTESIS params R_PARENTESIS '''
-
+    p[0] = sa.CallComParametro(p[1], p[3])
 def p_call_ID(p):
     ''' call : ID L_PARENTESIS R_PARENTESIS '''
-
+    p[0] = sa.CallSemParametro(p[1])
 def p_call_exp_ID_Params(p):
     ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS params R_PARENTESIS '''
-
+    p[0] = sa.CallAtributoComParametro(p[1], p[3], p[5])
 def p_call_exp_ID_NOParams(p):
     ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS R_PARENTESIS '''
-    
+    p[0] = sa.CallAtributoSemParametro(p[1], p[3])    
 #================== params =========================
 def p_params_exp_params(p):
     ''' params : exp VIRGULA params'''
+    p[0] = sa.MaisdeUmparams(p[1], p[3])
 def p_params_exp(p):
     ''' params : exp '''
-
+    p[0] = sa.Umparams(p[1])
 
 data2 = '''
 function some (a, b){ 
