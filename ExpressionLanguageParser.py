@@ -179,7 +179,7 @@ def p_exp1_OR_BIT_IGUAL(p):
 
 def p_exp_exp1(p):
     ''' exp : exp1'''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp1_OR_LOGICO(p):
@@ -187,7 +187,7 @@ def p_exp1_OR_LOGICO(p):
 
 def p_exp1_exp2(p):
     ''' exp1 : exp2'''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp2_AND_LOGICO(p):
@@ -195,7 +195,7 @@ def p_exp2_AND_LOGICO(p):
 
 def p_exp2_exp3(p):
     ''' exp2 : exp3'''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp3_OR_BITABIT(p):
@@ -203,7 +203,7 @@ def p_exp3_OR_BITABIT(p):
 
 def p_exp3_exp4(p):
     ''' exp3 : exp4 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp4_XOR_BITABIT(p):
@@ -211,7 +211,7 @@ def p_exp4_XOR_BITABIT(p):
 
 def p_exp4_exp5(p):
     ''' exp4 : exp5 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp5_AND_BITABIT(p):
@@ -219,7 +219,7 @@ def p_exp5_AND_BITABIT(p):
 
 def p_exp5_exp6(p):
     ''' exp5 : exp6 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp6_IGUALDADE(p):
@@ -236,7 +236,7 @@ def p_exp6_DESIGUAL_ESTRITA(p):
 
 def p_exp6_exp7(p):
     ''' exp6 : exp7 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp7_MAIOR(p):
@@ -253,71 +253,71 @@ def p_exp7_MENOR_IGUAL(p):
 
 def p_exp7_exp8(p):
     ''' exp7 : exp8 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp8_SOMA(p):
     ''' exp8 : exp8 SOMA exp9 '''
-
+p[0] = sa.ExpSoma(p[1], p[3])
 def p_exp8_SUBTRACAO(p):
     ''' exp8 : exp8 SUBTRACAO exp9 '''
-
+p[0] = sa.ExpSubtracao(p[1], p[3])
 def p_exp8_exp9(p):
     ''' exp8 : exp9 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp9_MULTIPLICACAO(p):
     ''' exp9 : exp9 MULTIPLICACAO exp10 '''
-
+    p[0] = sa.ExpMultiplicacao(p[1], p[3])
 def p_exp9_DIVISAO(p):
     ''' exp9 : exp9 DIVISAO exp10 '''
-
+    p[0] = sa.ExpDivisao(p[1], p[3])
 def p_exp9_RESTO(p):
     ''' exp9 : exp9 RESTO exp10 '''
-
+    p[0] = sa.ExpResto(p[1], p[3])
 def p_exp9_exp10(p):
     ''' exp9 : exp10 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp10_EXPONENCIACAO(p):
     ''' exp10 : exp11 EXPONENCIACAO exp10 '''
-
+    p[0] = sa.ExpPotencia(p[1], p[3])
 def p_exp10_exp11(p):
     ''' exp10 : exp11 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp11_INCREMENTO_PREFIXO(p):
     ''' exp11 : INCREMENTO exp11 '''
-
+    p[0] = sa.ExpIncrementoPrefixo(p[2])
 def p_exp11_DECREMENTO_PREFIXO(p):
     ''' exp11 : DECREMENTO exp11 '''
-
+    p[0] = sa.ExpDecrementoPrefixo(p[2])
 def p_exp11_NAO_LOGICO(p):
     ''' exp11 : NAO_LOGICO exp11 '''
-
+    p[0] = sa.ExpNegacao(p[2])
 def p_exp11_NAO_BITABIT(p):
     ''' exp11 : NAO_BITABIT exp11 '''
-
+    p[0] = sa.ExpNegacaoBit(p[2])
 def p_exp11_MAIS_UNARIO(p):
     ''' exp11 : SOMA exp11 '''
-
+    p[0] = sa.ExpPositivo(p[2])
 def p_exp11_MENOS_UNARIO(p):
     ''' exp11 : SUBTRACAO exp11 '''
-
+    p[0] = sa.ExpNegativo(p[2])
 def p_exp11_exp12(p):
     ''' exp11 : exp12 '''
-
+#    p[0] = sa.Exp(p[1])
 #------------------------------------
 
 def p_exp12_INCREMENTO_SUFIXO(p):
     ''' exp12 : exp12 INCREMENTO '''
-    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpIncremento(p[1])
 def p_exp12_DECREMENTO_SUFIXO(p):
     ''' exp12 : exp12 DECREMENTO '''
-    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpDecremento(p[1])
 def p_exp12_exp13(p):
     ''' exp12 : exp13 '''
 #    p[0] = sa.Exp(p[1])
