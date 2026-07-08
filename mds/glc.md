@@ -1,4 +1,4 @@
-# GLC da Linguagem JavaScript (Subset)
+# GLC da Linguagem JavaScript
 Terminais são representados pelos elementos cuja grafia está em maiúsculo, bem como pelos símbolos literais.
 
 program → funcdecl | funcdecl program | vardecl | vardecl program | classdecl | classdecl program
