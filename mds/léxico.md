@@ -1,4 +1,4 @@
-# ✨ Linguagem JavaScript (Subset) - Elementos Léxicos
+#  Linguagem JavaScript - Elementos Léxicos
 
 Esta documentação descreve os elementos léxicos do subconjunto da linguagem JavaScript especificado. A seguir, destacamos seus elementos léxicos:
 
