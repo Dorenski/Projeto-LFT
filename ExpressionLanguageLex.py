@@ -3,7 +3,6 @@ import ply.lex as lex
 reservadas = {
 	'break' : 'BREAK',
 	'case' : 'CASE',
-	#'catch' : 'CATCH',
 	'class' : 'CLASS',
 	'const' : 'CONST',
     'constructor' : 'CONSTRUCTOR',
@@ -13,44 +12,31 @@ reservadas = {
 	'delete' : 'DELETE',
 	'do' : 'DO',
 	'else' : 'ELSE',
-	#'export' : 'EXPORT',
-	#'extends' : 'EXTENDS',
 	'finally' : 'FINALLY',
 	'for' : 'FOR',
 	'function' : 'FUNCTION',
 	'if' : 'IF',
 	'import' : 'IMPORT',
 	'in' : 'IN',
-	#'instanceof' : 'INSTANCEOF',
 	'new' : 'NEW',
 	'return' : 'RETURN',
-	#'super' : 'SUPER',
 	'switch' : 'SWITCH',
 	'this' : 'THIS',
-	#'throw' : 'THROW',
-	#'try' : 'TRY',
 	'typeof' : 'TYPEOF',
 	'var' : 'VAR',
 	'void' : 'VOID',
 	'while' : 'WHILE',
 	'with' : 'WITH',
-	#'yield' : 'YIELD',
-	#'await' : 'AWAIT',
 	'protected' : 'PROTECTED',
 	'static' : 'STATIC',
 	'private' : 'PRIVATE',
 	'public' : 'PUBLIC',
 	'let' : 'LET',
-	#'abstract' : 'ABSTRACT',
 	'boolean' : 'BOOLEAN',
 	'byte' : 'BYTE',
 	'char' : 'CHAR',
-	#'double' : 'DOUBLE',
 	'final' : 'FINAL',
-	#'float' : 'FLOAT', 
 	'int' : 'INT',
-	#'long' : 'LONG',
-	#'short' : 'SHORT',
 	'true' : 'TRUE',
 	'false' : 'FALSE',
 	'null' : 'NULL',
@@ -89,10 +75,8 @@ tokens = [
 	'OR_BITABIT',
 	'AND_LOGICO',
 	'OR_LOGICO',
-	
 	'INTERROGACAO',
 	'DOIS_PONTOS',
-	
 	'ATRIBUICAO',
     'MAIS_IGUAL',
     'MENOS_IGUAL',
@@ -106,12 +90,10 @@ tokens = [
     'AND_BIT_IGUAL',
     'XOR_BIT_IGUAL',
 	'OR_BIT_IGUAL',
-
 	'PROPAGACAO',
 	'VIRGULA',
     'FLOAT_LITERAL',
     'INT_LITERAL',
-	
 	'ASPAS_DUPLAS',
 	'ASPAS',
 	'PONTO_E_VIRGULA',
@@ -131,20 +113,16 @@ t_L_COLCHETE = r'\['
 t_R_COLCHETE = r'\]'
 t_L_CHAVE = r'\{'
 t_R_CHAVE = r'\}'
-
 t_INCREMENTO = r'\+\+'
 t_DECREMENTO = r'\-\-'
-
 t_NAO_LOGICO = r'\!'
 t_NAO_BITABIT = r'\~'
-
 t_EXPONENCIACAO = r'\*\*'
 t_MULTIPLICACAO = r'\*'
 t_RESTO = r'\%'
 t_DIVISAO = r'\/'
 t_SOMA = r'\+'
 t_SUBTRACAO = r'\-'
-
 t_MENOR_IGUAL = r'\<\='
 t_MENOR = r'\<'
 t_MAIOR_IGUAL = r'\>\='
@@ -153,16 +131,13 @@ t_IGUAL_ESTRITA = r'\=\=\='
 t_DESIGUAL_ESTRITA = r'\!\=\='
 t_IGUALDADE = r'\=\='
 t_DESIGUALDADE = r'\!\='
-
 t_AND_LOGICO = r'\&\&'
 t_AND_BITABIT = r'\&'
 t_XOR_BITABIT = r'\^'
 t_OR_LOGICO = r'\|\|'
 t_OR_BITABIT = r'\|'
-
 t_INTERROGACAO = r'\?'
 t_DOIS_PONTOS = r'\:'
-
 t_ATRIBUICAO = r'\='
 t_MAIS_IGUAL = r'\+\='
 t_MENOS_IGUAL = r'\-\='
@@ -176,7 +151,6 @@ t_DESLOC_D_S_IGUAL = r'\>\>\>\='
 t_AND_BIT_IGUAL = r'\&\='
 t_XOR_BIT_IGUAL = r'\^\='
 t_OR_BIT_IGUAL = r'\|\='
-
 t_VIRGULA = r'\,'
 t_PONTO_E_VIRGULA = r'\;'
 t_ASPAS_DUPLAS = r'\"'
@@ -202,7 +176,6 @@ def t_STRING_A(t):
     r"'[^'\n]*'"
     return t
 	
-
 def t_FLOAT_LITERAL(t):
     r'\d+\.\d+'
     t.value = float(t.value)
