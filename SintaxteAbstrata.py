@@ -3,12 +3,10 @@ from abc import ABCMeta
 
 # ================== program =========================
 
-
 class Program(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class Umfuncdecl(Program):
     def __init__(self, funcdecl):
@@ -16,7 +14,6 @@ class Umfuncdecl(Program):
 
     def accept(self, visitor):
         return visitor.visitUmfuncdecl(self)
-
 
 class MaisdeUmfuncdecl(Program):
     def __init__(self, funcDecl, program):
@@ -26,14 +23,12 @@ class MaisdeUmfuncdecl(Program):
     def accept(self, visitor):
         return visitor.visitMaisdeUmfuncdecl(self)
 
-
 class Umvardecl(Program):
     def __init__(self, vardecl):
         self.vardecl = vardecl
 
     def accept(self, visitor):
         return visitor.visitUmvardecl(self)
-
 
 class MaisdeUmvardecl(Program):
     def __init__(self, vardecl, program):
@@ -43,14 +38,12 @@ class MaisdeUmvardecl(Program):
     def accept(self, visitor):
         return visitor.visitMaisdeUmvardecl(self)
 
-
 class Umclassdecl(Program):
     def __init__(self, classdecl):
         self.classdecl = classdecl
 
     def accept(self, visitor):
         return visitor.visitUmclassdecl(self)
-
 
 class MaisdeUmclassdecl(Program):
     def __init__(self, classdecl, program):
@@ -62,12 +55,10 @@ class MaisdeUmclassdecl(Program):
 
 # ================== classdecl =========================
 
-
 class Classdecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class concretoClassdecl(Classdecl):
     def __init__(self, type, classbody):
@@ -79,12 +70,10 @@ class concretoClassdecl(Classdecl):
 
 # ================== classbody =========================
 
-
 class Classbody(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class concretoClassbody(Classbody):
     def __init__(self, classmembers):
@@ -95,12 +84,10 @@ class concretoClassbody(Classbody):
 
 # ================== classmembers =========================
 
-
 class Classmembers(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class Umclassmember(Classmembers):
     def __init__(self, classmember):
@@ -108,7 +95,6 @@ class Umclassmember(Classmembers):
 
     def accept(self, visitor):
         return visitor.visitUmclassmember(self)
-
 
 class MaisdeUmclassmember(Classmembers):
     def __init__(self, classmember, classmembers):
@@ -120,12 +106,10 @@ class MaisdeUmclassmember(Classmembers):
 
 # ================== classmember =========================
 
-
 class Classmember(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class methodClassmember(Classmember):
     def __init__(self, methoddecl):
@@ -134,14 +118,12 @@ class methodClassmember(Classmember):
     def accept(self, visitor):
         return visitor.visitmethodClassmember(self)
 
-
 class constructorClassmember(Classmember):
     def __init__(self, constructordecl):
         self.constructordecl = constructordecl
 
     def accept(self, visitor):
         return visitor.visitconstructorClassmember(self)
-
 
 class attrClassmember(Classmember):
     def __init__(self, attrdecl):
@@ -152,12 +134,10 @@ class attrClassmember(Classmember):
 
 # ================== constructordecl =========================
 
-
 class Constructordecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class ParametroConstrutordecl(Constructordecl):
     def __init__(self, sigparams, body):
@@ -166,7 +146,6 @@ class ParametroConstrutordecl(Constructordecl):
 
     def accept(self, visitor):
         return visitor.visitParametroConstrutordecl(self)
-
 
 class SemParametroConstrutordecl(Constructordecl):
     def __init__(self, body):
@@ -177,12 +156,10 @@ class SemParametroConstrutordecl(Constructordecl):
 
 # ================== methoddecl =========================
 
-
 class Methoddecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class ParametroMethoddecl(Methoddecl):
     def __init__(self, type, sigparams, body):
@@ -192,7 +169,6 @@ class ParametroMethoddecl(Methoddecl):
 
     def accept(self, visitor):
         return visitor.visitParametroMethoddecl(self)
-
 
 class SemParametroMethoddecl(Methoddecl):
     def __init__(self, type, body):
@@ -204,12 +180,10 @@ class SemParametroMethoddecl(Methoddecl):
 
 # ================== attrdecl =========================
 
-
 class Attrdecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class SemValorAttrdecl(Attrdecl):
     def __init__(self, type):
@@ -217,7 +191,6 @@ class SemValorAttrdecl(Attrdecl):
 
     def accept(self, visitor):
         return visitor.visitSimplesAttrdecl(self)
-
 
 class ComValorAttrdecl(Attrdecl):
     def __init__(self, type, exp):
@@ -229,12 +202,10 @@ class ComValorAttrdecl(Attrdecl):
 
 # ================== funcdecl =========================
 
-
 class Funcdecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class concretoFuncdecl(Funcdecl):
     def __init__(self, signature, body):
@@ -246,12 +217,10 @@ class concretoFuncdecl(Funcdecl):
 
 # ================== signature =========================
 
-
 class Signature(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class ParametroSignature(Signature):
     def __init__(self, type, sigparams):
@@ -261,7 +230,6 @@ class ParametroSignature(Signature):
     def accept(self, visitor):
         return visitor.visitParametroSignature(self)
 
-
 class SemParametroSignature(Signature):
     def __init__(self, type):
         self.type = type
@@ -270,12 +238,10 @@ class SemParametroSignature(Signature):
         return visitor.visitSemParametroSignature(self)
 # ================== sigparams =========================
 
-
 class Sigparams(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class Umsigparams(Sigparams):
     def __init__(self, type):
@@ -283,7 +249,6 @@ class Umsigparams(Sigparams):
 
     def accept(self, visitor):
         return visitor.visitUmsigparams(self)
-
 
 class MaisdeUmsigparams(Sigparams):
     def __init__(self, type, sigparams):
@@ -295,12 +260,10 @@ class MaisdeUmsigparams(Sigparams):
 
 # ================== body =========================
 
-
 class Body(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class concretoBody(Body):
     def __init__(self, stms):
@@ -311,12 +274,10 @@ class concretoBody(Body):
 
 # ================== exp =========================
 
-
 class Exp(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class ExpSoma(Exp):
     def __init__(self, exp1, exp2):
@@ -326,7 +287,6 @@ class ExpSoma(Exp):
     def accept(self, visitor):
         return visitor.visitExpSoma(self)
 
-
 class ExpSubtracao(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -334,7 +294,6 @@ class ExpSubtracao(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpSubtracao(self)
-
 
 class ExpMultiplicacao(Exp):
     def __init__(self, exp1, exp2):
@@ -344,7 +303,6 @@ class ExpMultiplicacao(Exp):
     def accept(self, visitor):
         return visitor.visitExpMultiplicacao(self)
 
-
 class ExpDivisao(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -352,7 +310,6 @@ class ExpDivisao(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpDivisao(self)
-
 
 class ExpResto(Exp):
     def __init__(self, exp1, exp2):
@@ -362,14 +319,12 @@ class ExpResto(Exp):
     def accept(self, visitor):
         return visitor.visitExpResto(self)
 
-
 class ExpDecremento(Exp):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitExpDecremento(self)
-
 
 class ExpIncremento(Exp):
     def __init__(self, exp):
@@ -378,7 +333,6 @@ class ExpIncremento(Exp):
     def accept(self, visitor):
         return visitor.visitExpIncremento(self)
 
-
 class ExpIncrementoPrefixo(Exp):
     def __init__(self, exp):
         self.exp = exp
@@ -386,14 +340,12 @@ class ExpIncrementoPrefixo(Exp):
     def accept(self, visitor):
         return visitor.visitExpIncrementoPrefixo(self)
 
-
 class ExpDecrementoPrefixo(Exp):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitExpDecrementoPrefixo(self)
-
 
 class ExpPotencia(Exp):
     def __init__(self, exp1, exp2):
@@ -403,7 +355,6 @@ class ExpPotencia(Exp):
     def accept(self, visitor):
         return visitor.visitExpPotencia(self)
 
-
 class ExpIgualdadeEstrita(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -411,7 +362,6 @@ class ExpIgualdadeEstrita(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpIgualdade(self)
-
 
 class ExpDiferencaEstrita(Exp):
     def __init__(self, exp1, exp2):
@@ -421,7 +371,6 @@ class ExpDiferencaEstrita(Exp):
     def accept(self, visitor):
         return visitor.visitExpDiferenca(self)
 
-
 class ExpEbit(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -429,7 +378,6 @@ class ExpEbit(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpEbitabit(self)
-
 
 class ExpXorbit(Exp):
     def __init__(self, exp1, exp2):
@@ -439,7 +387,6 @@ class ExpXorbit(Exp):
     def accept(self, visitor):
         return visitor.visitExpXorbit(self)
 
-
 class ExpOUbit(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -447,7 +394,6 @@ class ExpOUbit(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpOUbit(self)
-
 
 class Expigualdade(Exp):
     def __init__(self, exp1, exp2):
@@ -457,7 +403,6 @@ class Expigualdade(Exp):
     def accept(self, visitor):
         return visitor.visitExpigualdade(self)
 
-
 class Expdiferenca(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -465,7 +410,6 @@ class Expdiferenca(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpdiferenca(self)
-
 
 class Expmaior(Exp):
     def __init__(self, exp1, exp2):
@@ -475,7 +419,6 @@ class Expmaior(Exp):
     def accept(self, visitor):
         return visitor.visitExpmaior(self)
 
-
 class Expmenor(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -483,7 +426,6 @@ class Expmenor(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpmenor(self)
-
 
 class Expmaiorigual(Exp):
     def __init__(self, exp1, exp2):
@@ -493,7 +435,6 @@ class Expmaiorigual(Exp):
     def accept(self, visitor):
         return visitor.visitExpmaiorigual(self)
 
-
 class Expmenorigual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -501,7 +442,6 @@ class Expmenorigual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpmenorigual(self)
-
 
 class ExpElogico(Exp):
     def __init__(self, exp1, exp2):
@@ -511,7 +451,6 @@ class ExpElogico(Exp):
     def accept(self, visitor):
         return visitor.visitExpElogico(self)
 
-
 class ExpOUlogico(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -520,14 +459,12 @@ class ExpOUlogico(Exp):
     def accept(self, visitor):
         return visitor.visitExpOUlogico(self)
 
-
 class ExpNegacao(Exp):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitExpNegacao(self)
-
 
 class ExpNegacaoBit(Exp):
     def __init__(self, exp):
@@ -536,14 +473,12 @@ class ExpNegacaoBit(Exp):
     def accept(self, visitor):
         return visitor.visitExpNegacaoBit(self)
 
-
 class ExpParenteses(Exp):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitExpParenteses(self)
-
 
 class ExpPositivo(Exp):
     def __init__(self, exp):
@@ -552,14 +487,12 @@ class ExpPositivo(Exp):
     def accept(self, visitor):
         return visitor.visitExpPositivo(self)
 
-
 class ExpNegativo(Exp):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitExpNegativo(self)
-
 
 class ExpTernario(Exp):
     def __init__(self, exp1, exp2, exp3):
@@ -570,7 +503,6 @@ class ExpTernario(Exp):
     def accept(self, visitor):
         return visitor.visitExpTernario(self)
 
-
 class ExpMaisIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -578,7 +510,6 @@ class ExpMaisIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpMaisIgual(self)
-
 
 class ExpMenosIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -588,7 +519,6 @@ class ExpMenosIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpMenosIgual(self)
 
-
 class ExpMultiplicacaoIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -596,7 +526,6 @@ class ExpMultiplicacaoIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpMultiplicacaoIgual(self)
-
 
 class ExpPotenciaIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -606,7 +535,6 @@ class ExpPotenciaIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpPotenciaIgual(self)
 
-
 class ExpDivisaoIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -614,7 +542,6 @@ class ExpDivisaoIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpDivisaoIgual(self)
-
 
 class ExpRestoIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -624,7 +551,6 @@ class ExpRestoIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpRestoIgual(self)
 
-
 class ExpDeslocamentoEsquerdaIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -632,7 +558,6 @@ class ExpDeslocamentoEsquerdaIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpDeslocamentoEsquerdaIgual(self)
-
 
 class ExpDeslocamentoDireitaIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -642,7 +567,6 @@ class ExpDeslocamentoDireitaIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpDeslocamentoDireitaIgual(self)
 
-
 class ExpDeslocamentoDireitaSemSinalIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -650,7 +574,6 @@ class ExpDeslocamentoDireitaSemSinalIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpDeslocamentoDireitaSemSinalIgual(self)
-
 
 class ExpEbitIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -660,7 +583,6 @@ class ExpEbitIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpEbitIgual(self)
 
-
 class ExpXorbitIgual(Exp):
     def __init__(self, exp1, exp2):
         self.exp1 = exp1
@@ -668,7 +590,6 @@ class ExpXorbitIgual(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpXorbitIgual(self)
-
 
 class ExpOUbitIgual(Exp):
     def __init__(self, exp1, exp2):
@@ -678,14 +599,12 @@ class ExpOUbitIgual(Exp):
     def accept(self, visitor):
         return visitor.visitExpOUbitIgual(self)
 
-
 class ExpNewSemParametro(Exp):
     def __init__(self, type):
         self.type = type
 
     def accept(self, visitor):
         return visitor.visitExpNewSemParametro(self)
-
 
 class ExpNewComParametro(Exp):
     def __init__(self, type, params):
@@ -695,7 +614,6 @@ class ExpNewComParametro(Exp):
     def accept(self, visitor):
         return visitor.visitExpNewComParametro(self)
 
-
 class ExpAcessoAtributo(Exp):
     def __init__(self, exp, type):
         self.exp = exp
@@ -703,7 +621,6 @@ class ExpAcessoAtributo(Exp):
 
     def accept(self, visitor):
         return visitor.visitExpAcessoAtributo(self)
-
 
 class ExpAcessoMetodo(Exp):
     def __init__(self, exp, type, params):
@@ -714,11 +631,9 @@ class ExpAcessoMetodo(Exp):
     def accept(self, visitor):
         return visitor.visitExpAcessoMetodo(self)
 
-
 class ExpThis(Exp):
     def accept(self, visitor):
         return visitor.visitExpThis(self)
-
 
 class ExpNum(Exp):
     def __init__(self, num):
@@ -727,14 +642,12 @@ class ExpNum(Exp):
     def accept(self, visitor):
         return visitor.visitExpNum(self)
 
-
 class ExpId(Exp):
     def __init__(self, id):
         self.id = id
 
     def accept(self, visitor):
         return visitor.visitExpId(self)
-
 
 class ExpCall(Exp):
     def __init__(self, call):
@@ -743,7 +656,6 @@ class ExpCall(Exp):
     def accept(self, visitor):
         return visitor.visitExpCall(self)
 
-
 class ExpAssign(Exp):
     def __init__(self, assign):
         self.assign = assign
@@ -751,21 +663,17 @@ class ExpAssign(Exp):
     def accept(self, visitor):
         return visitor.visitExpAssign(self)
 
-
 class ExpTrue(Exp):
     def accept(self, visitor):
         return visitor.visitExpTrue(self)
-
 
 class ExpFalse(Exp):
     def accept(self, visitor):
         return visitor.visitExpFalse(self)
 
-
 class ExpStringAD(Exp):
     def accept(self, visitor):
         return visitor.visitExpStringAD(self)
-
 
 class ExpStringA(Exp):
     def accept(self, visitor):
@@ -773,12 +681,10 @@ class ExpStringA(Exp):
 
 # ================== vardecl =========================
 
-
 class Vardecl(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class LetSemValorVardecl(Vardecl):
     def __init__(self, type):
@@ -787,7 +693,6 @@ class LetSemValorVardecl(Vardecl):
     def accept(self, visitor):
         return visitor.visitLetSemValorVardecl(self)
 
-
 class VarSemValorVardecl(Vardecl):
     def __init__(self, type):
         self.type = type
@@ -795,14 +700,12 @@ class VarSemValorVardecl(Vardecl):
     def accept(self, visitor):
         return visitor.visitVarSemValorVardecl(self)
 
-
 class ConstSemValorVardecl(Vardecl):
     def __init__(self, type):
         self.type = type
 
     def accept(self, visitor):
         return visitor.visitConstSemValorVardecl(self)
-
 
 class LetComValorVardecl(Vardecl):
     def __init__(self, type, exp):
@@ -812,7 +715,6 @@ class LetComValorVardecl(Vardecl):
     def accept(self, visitor):
         return visitor.visitLetComValorVardecl(self)
 
-
 class VarComValorVardecl(Vardecl):
     def __init__(self, type, exp):
         self.type = type
@@ -820,7 +722,6 @@ class VarComValorVardecl(Vardecl):
 
     def accept(self, visitor):
         return visitor.visitVarComValorVardecl(self)
-
 
 class ConstComValorVardecl(Vardecl):
     def __init__(self, type, exp):
@@ -832,12 +733,10 @@ class ConstComValorVardecl(Vardecl):
 
 # ================== stms =========================
 
-
 class Stms(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class Umstms(Stms):
     def __init__(self, stm):
@@ -845,7 +744,6 @@ class Umstms(Stms):
 
     def accept(self, visitor):
         return visitor.visitUmstm(self)
-
 
 class MaisdeUmstms(Stms):
     def __init__(self, stm, stms):
@@ -857,12 +755,10 @@ class MaisdeUmstms(Stms):
 
 # ================== stm =========================
 
-
 class Stm(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class ForStm(Stm):
     def __init__(self, exp1, exp2, exp3, body):
@@ -874,14 +770,12 @@ class ForStm(Stm):
     def accept(self, visitor):
         return visitor.visitForStm(self)
 
-
 class AssignStm(Stm):
     def __init__(self, assign):
         self.assign = assign
 
     def accept(self, visitor):
         return visitor.visitAssignStm(self)
-
 
 class VardeclStm(Stm):
     def __init__(self, vardecl):
@@ -890,7 +784,6 @@ class VardeclStm(Stm):
     def accept(self, visitor):
         return visitor.visitVardeclStm(self)
 
-
 class ExpStm(Stm):
     def __init__(self, exp):
         self.exp = exp
@@ -898,14 +791,12 @@ class ExpStm(Stm):
     def accept(self, visitor):
         return visitor.visitExpStm(self)
 
-
 class ReturnStm(Stm):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
         return visitor.visitReturnStm(self)
-
 
 class WhileStm(Stm):
     def __init__(self, exp, body):
@@ -915,7 +806,6 @@ class WhileStm(Stm):
     def accept(self, visitor):
         return visitor.visitWhileStm(self)
 
-
 class IfStm(Stm):
     def __init__(self, exp, body):
         self.exp = exp
@@ -923,7 +813,6 @@ class IfStm(Stm):
 
     def accept(self, visitor):
         return visitor.visitIfStm(self)
-
 
 class IfElseStm(Stm):
     def __init__(self, exp, body1, body2):
@@ -936,12 +825,10 @@ class IfElseStm(Stm):
 
 # ================== assign =========================
 
-
 class Assign(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class AtribuicaoSimples(Assign):
     def __init__(self, type, exp):
@@ -950,7 +837,6 @@ class AtribuicaoSimples(Assign):
 
     def accept(self, visitor):
         return visitor.visitAtribuicaoSimples(self)
-
 
 class AtribuicaoAtributo(Assign):
     def __init__(self, exp1, type, exp2):
@@ -963,12 +849,10 @@ class AtribuicaoAtributo(Assign):
 
 # ================== call =========================
 
-
 class Call(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class CallSemParametro(Call):
     def __init__(self, type):
@@ -976,7 +860,6 @@ class CallSemParametro(Call):
 
     def accept(self, visitor):
         return visitor.visitCallSemParametro(self)
-
 
 class CallComParametro(Call):
     def __init__(self, type, params):
@@ -986,7 +869,6 @@ class CallComParametro(Call):
     def accept(self, visitor):
         return visitor.visitCallComParametro(self)
 
-
 class CallAtributoSemParametro(Call):
     def __init__(self, exp, type):
         self.exp = exp
@@ -994,7 +876,6 @@ class CallAtributoSemParametro(Call):
 
     def accept(self, visitor):
         return visitor.visitCallAtributoSemParametro(self)
-
 
 class CallAtributoComParametro(Call):
     def __init__(self, exp, type, params):
@@ -1007,20 +888,17 @@ class CallAtributoComParametro(Call):
 
 # ================== params =========================
 
-
 class Params(metaclass=ABCMeta):
     @abstractmethod
     def accept(self, visitor):
         pass
-
 
 class Umparams(Params):
     def __init__(self, exp):
         self.exp = exp
 
     def accept(self, visitor):
-        return visitor.visitUmparam(self)
-
+        return visitor.visitUmparams(self)
 
 class MaisdeUmparams(Params):
     def __init__(self, exp, params):
@@ -1028,4 +906,4 @@ class MaisdeUmparams(Params):
         self.params = params
 
     def accept(self, visitor):
-        return visitor.visitMaisdeUmparam(self)
+        return visitor.visitMaisdeUmparams(self)
