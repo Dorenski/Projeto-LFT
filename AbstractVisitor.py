@@ -106,7 +106,167 @@ class AbstractVisitor(metaclass=ABCMeta):
 
 # ================== exp =========================
 
+    @abstractmethod
+    def visitExpSoma(self, ExpSoma): pass
 
+    @abstractmethod
+    def visitExpSubtracao(self, ExpSubtracao): pass
+
+    @abstractmethod
+    def visitExpMultiplicacao(self, ExpMultiplicacao): pass
+
+    @abstractmethod
+    def visitExpDivisao(self, ExpDivisao): pass
+
+    @abstractmethod
+    def visitExpResto(self, ExpResto): pass
+
+    @abstractmethod
+    def visitExpDecremento(self, ExpDecremento): pass
+
+    @abstractmethod
+    def visitExpIncremento(self, ExpIncremento): pass
+
+    @abstractmethod
+    def visitExpIncrementoPrefixo(self, ExpIncrementoPrefixo): pass
+
+    @abstractmethod
+    def visitExpDecrementoPrefixo(self, ExpDecrementoPrefixo): pass
+
+    @abstractmethod
+    def visitExpPotencia(self, ExpPotencia): pass
+
+    @abstractmethod
+    def visitExpIgualdadeEstrita(self, ExpIgualdadeEstrita): pass
+
+    @abstractmethod
+    def visitExpDiferencaEstrita(self, ExpDiferencaEstrita): pass
+
+    @abstractmethod
+    def visitExpEbit(self, ExpEbit): pass
+
+    @abstractmethod
+    def visitExpXorbit(self, ExpXorbit): pass
+
+    @abstractmethod
+    def visitExpOUbit(self, ExpOUbit): pass
+
+    @abstractmethod
+    def visitExpigualdade(self, Expigualdade): pass
+
+    @abstractmethod
+    def visitExpdiferenca(self, Expdiferenca): pass
+
+    @abstractmethod
+    def visitExpmaior(self, Expmaior): pass
+
+    @abstractmethod
+    def visitExpmenor(self, Expmenor): pass
+
+    @abstractmethod
+    def visitExpmaiorigual(self, Expmaiorigual): pass
+
+    @abstractmethod
+    def visitExpmenorigual(self, Expmenorigual): pass
+
+    @abstractmethod
+    def visitExpElogico(self, ExpElogico): pass
+
+    @abstractmethod
+    def visitExpOUlogico(self, ExpOUlogico): pass
+
+    @abstractmethod
+    def visitExpNegacao(self, ExpNegacao): pass
+
+    @abstractmethod
+    def visitExpNegacaoBit(self, ExpNegacaoBit): pass
+
+    @abstractmethod
+    def visitExpParenteses(self, ExpParenteses): pass
+
+    @abstractmethod
+    def visitExpPositivo(self, ExpPositivo): pass
+
+    @abstractmethod
+    def visitExpNegativo(self, ExpNegativo): pass
+
+    @abstractmethod
+    def visitExpTernario(self, ExpTernario): pass
+
+    @abstractmethod
+    def visitExpMaisIgual(self, ExpMaisIgual): pass
+
+    @abstractmethod
+    def visitExpMenosIgual(self, ExpMenosIgual): pass
+
+    @abstractmethod
+    def visitExpMultiplicacaoIgual(self, ExpMultiplicacaoIgual): pass
+
+    @abstractmethod
+    def visitExpPotenciaIgual(self, ExpPotenciaIgual): pass
+
+    @abstractmethod
+    def visitExpDivisaoIgual(self, ExpDivisaoIgual): pass
+
+    @abstractmethod
+    def visitExpRestoIgual(self, ExpRestoIgual): pass
+
+    @abstractmethod
+    def visitExpDeslocamentoEsquerdaIgual(self, ExpDeslocamentoEsquerdaIgual): pass
+
+    @abstractmethod
+    def visitExpDeslocamentoDireitaIgual(self, ExpDeslocamentoDireitaIgual): pass
+
+    @abstractmethod
+    def visitExpDeslocamnetoDireitaSemSinalIgual(self, ExpDeslocamnetoDireitaSemSinalIgual): pass
+
+    @abstractmethod
+    def visitExpEbitIgual(self, ExpEbitIgual): pass
+
+    @abstractmethod
+    def visitExpXorbitIgual(self, ExpXorbitIgual): pass
+
+    @abstractmethod
+    def visitExpOUbitIgual(self, ExpOUbitIgual): pass
+
+    @abstractmethod
+    def visitExpNewSemParametro(self, ExpNewSemParametro): pass
+
+    @abstractmethod
+    def visitExpNewComParametro(self, ExpNewComParametro): pass
+
+    @abstractmethod
+    def visitExpAcessoAtributo(self, ExpAcessoAtributo): pass
+
+    @abstractmethod
+    def visitExpAcessoMetodo(self, ExpAcessoMetodo): pass
+
+    @abstractmethod
+    def visitExpThis(self, ExpThis): pass
+
+    @abstractmethod
+    def visitExpNum(self, ExpNum): pass
+
+    @abstractmethod
+    def visitExpId(self, ExpId): pass
+
+    @abstractmethod
+    def visitExpCall(self, ExpCall): pass
+
+    @abstractmethod
+    def visitExpAssign(self, ExpAssign): pass
+
+    @abstractmethod
+    def visitExpTrue(self, ExpTrue): pass
+
+    @abstractmethod
+    def visitExpFalse(self, ExpFalse): pass
+
+    @abstractmethod
+    def visitExpStringAD(self, ExpStringAD): pass
+
+    @abstractmethod
+    def visitExpStringA(self, ExpStringA): pass
 
 # ================== vardecl =========================
 
