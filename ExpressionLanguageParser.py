@@ -129,7 +129,7 @@ def p_constructordecl_sigparams(p):
 
 def p_constructordecl_NOsigparams(p):
     '''constructordecl : CONSTRUCTOR L_PARENTESIS  R_PARENTESIS body '''
-    p[0] = sa.SemParametroConstrutordecl(p[4])
+    p[0] = sa.SemParametroConstructordecl(p[4])
 # ================== methoddecl =========================
 
 
@@ -469,12 +469,12 @@ def p_exp12_exp13(p):
 
 def p_exp13_ACESSO_ID(p):
     ''' exp13 : exp13 ACESSO_MEMBRO ID '''
-    p[0] = sa.ExpAcessoAtributo(p[1], p[2], p[3])
+    p[0] = sa.ExpAcessoAtributo(p[1], p[3])
 
 
 def p_exp13_ACESSO_CALL(p):
     ''' exp13 : exp13 ACESSO_MEMBRO call '''
-    p[0] = sa.ExpAcessoMetodo(p[1], p[2], p[3])
+    p[0] = sa.ExpAcessoMetodo(p[1], p[3])
 
 
 def p_exp13_exp14(p):
@@ -495,7 +495,7 @@ def p_exp14_NEW_PARAMS(p):
 
 def p_exp14_THIS(p):
     ''' exp14 : THIS '''
-#    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpThis()
 
 
 def p_exp14_NUM(p):
@@ -520,22 +520,22 @@ def p_exp14_ASSIGN(p):
 
 def p_exp14_TRUE(p):
     ''' exp14 : TRUE '''
-#    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpTrue()
 
 
 def p_exp14_FALSE(p):
     ''' exp14 : FALSE '''
-#    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpFalse()
 
 
 def p_exp14_STRING_AD(p):
     ''' exp14 : STRING_AD '''
-#    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpStringAD(p[1])
 
 
 def p_exp14_STRING_A(p):
     ''' exp14 : STRING_A '''
-#    p[0] = sa.Exp(p[1])
+    p[0] = sa.ExpStringA(p[1])
 
 
 def p_exp14_AGRUPAMENTO(p):
@@ -551,7 +551,7 @@ def p_vardecl(p):
 
 def p_vardecl_let(p):
     ''' vardecl : LET ID ATRIBUICAO exp PONTO_E_VIRGULA'''
-    p[0] = sa.VarSemValorVardecl(p[2], p[4])
+    p[0] = sa.LetComValorVardecl(p[2], p[4])
 
 
 def p_vardecl_const(p):
@@ -633,7 +633,7 @@ def p_assign_ID(p):
 
 
 def p_assign_exp_ID(p):
-    ''' assign : exp ACESSO_MEMBRO ID ATRIBUICAO exp '''
+    ''' assign : exp13 ACESSO_MEMBRO ID ATRIBUICAO exp '''
     p[0] = sa.AtribuicaoAtributo(p[1], p[3], p[5])
 # ================== call =========================
 
@@ -649,12 +649,12 @@ def p_call_ID(p):
 
 
 def p_call_exp_ID_Params(p):
-    ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS params R_PARENTESIS '''
+    ''' call : exp13 ACESSO_MEMBRO ID L_PARENTESIS params R_PARENTESIS '''
     p[0] = sa.CallAtributoComParametro(p[1], p[3], p[5])
 
 
 def p_call_exp_ID_NOParams(p):
-    ''' call : exp ACESSO_MEMBRO ID L_PARENTESIS R_PARENTESIS '''
+    ''' call : exp13 ACESSO_MEMBRO ID L_PARENTESIS R_PARENTESIS '''
     p[0] = sa.CallAtributoSemParametro(p[1], p[3])
 # ================== params =========================
 

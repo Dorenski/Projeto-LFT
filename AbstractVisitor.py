@@ -1,8 +1,8 @@
 from abc import abstractmethod, ABCMeta
 
 # Padrão =============================================
-    @abstractmethod
-    def visit(self, ): pass
+@abstractmethod
+def visit(self, ): pass
 
 class AbstractVisitor(metaclass=ABCMeta):
 
@@ -218,7 +218,7 @@ class AbstractVisitor(metaclass=ABCMeta):
     def visitExpDeslocamentoDireitaIgual(self, ExpDeslocamentoDireitaIgual): pass
 
     @abstractmethod
-    def visitExpDeslocamnetoDireitaSemSinalIgual(self, ExpDeslocamnetoDireitaSemSinalIgual): pass
+    def visitExpDeslocamentoDireitaSemSinalIgual(self, ExpDeslocamentoDireitaSemSinalIgual): pass
 
     @abstractmethod
     def visitExpEbitIgual(self, ExpEbitIgual): pass
@@ -336,7 +336,7 @@ class AbstractVisitor(metaclass=ABCMeta):
     def visitCallSemParametro(self, CallSemParametro): pass
 
     @abstractmethod
-    def visitCallComParamtro(self, CallComParamtro): pass
+    def visitCallComParametro(self, CallComParametro): pass
 
     @abstractmethod
     def visitCallAtributoSemParametro(self, CallAtributoSemParametro): pass

@@ -147,12 +147,12 @@ class ParametroConstrutordecl(Constructordecl):
     def accept(self, visitor):
         return visitor.visitParametroConstrutordecl(self)
 
-class SemParametroConstrutordecl(Constructordecl):
+class SemParametroConstructordecl(Constructordecl):
     def __init__(self, body):
         self.body = body
 
     def accept(self, visitor):
-        return visitor.visitSemParametroConstrutordecl(self)
+        return visitor.visitSemParametroConstructordecl(self)
 
 # ================== methoddecl =========================
 
@@ -190,7 +190,7 @@ class SemValorAttrdecl(Attrdecl):
         self.type = type
 
     def accept(self, visitor):
-        return visitor.visitSimplesAttrdecl(self)
+        return visitor.visitSemValorAttrdecl(self)
 
 class ComValorAttrdecl(Attrdecl):
     def __init__(self, type, exp):
@@ -361,7 +361,7 @@ class ExpIgualdadeEstrita(Exp):
         self.exp2 = exp2
 
     def accept(self, visitor):
-        return visitor.visitExpIgualdade(self)
+        return visitor.visitExpigualdade(self)
 
 class ExpDiferencaEstrita(Exp):
     def __init__(self, exp1, exp2):
@@ -623,10 +623,9 @@ class ExpAcessoAtributo(Exp):
         return visitor.visitExpAcessoAtributo(self)
 
 class ExpAcessoMetodo(Exp):
-    def __init__(self, exp, type, params):
+    def __init__(self, exp, call):
         self.exp = exp
-        self.type = type
-        self.call = params
+        self.call = call
 
     def accept(self, visitor):
         return visitor.visitExpAcessoMetodo(self)
@@ -672,10 +671,14 @@ class ExpFalse(Exp):
         return visitor.visitExpFalse(self)
 
 class ExpStringAD(Exp):
+    def __init__(self, val):
+        self.val = val
     def accept(self, visitor):
         return visitor.visitExpStringAD(self)
 
 class ExpStringA(Exp):
+    def __init__(self, val):
+        self.val = val
     def accept(self, visitor):
         return visitor.visitExpStringA(self)
 
@@ -743,7 +746,7 @@ class Umstms(Stms):
         self.stm = stm
 
     def accept(self, visitor):
-        return visitor.visitUmstm(self)
+        return visitor.visitUmstms(self)
 
 class MaisdeUmstms(Stms):
     def __init__(self, stm, stms):
@@ -751,7 +754,7 @@ class MaisdeUmstms(Stms):
         self.stms = stms
 
     def accept(self, visitor):
-        return visitor.visitMaisdeUmstm(self)
+        return visitor.visitMaisdeUmstms(self)
 
 # ================== stm =========================
 
