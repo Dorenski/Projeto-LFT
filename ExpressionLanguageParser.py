@@ -670,22 +670,51 @@ def p_params_exp(p):
 
 
 data2 = '''
-function some (a, b){ 
-    a = 88 + 44; 
-    b = 70; 
-    sumparabola(1, 2, 3); 
-    if (b==70){     
-        while (true){ 
-            c = 38; 
-            sumparabola(5, true, false); 
-            while (c){ 
-                sumparabola(5, true, true); 
-            } 
+class Calculadora {
+    resultado;
+
+    constructor() {
+        this.resultado = 0;
+    }
+
+    somar(a, b) {
+        let res = a + b;
+        this.resultado += res;
+        return this.resultado;
+    }
+}
+
+function operacoes(x, y) {
+    const msg = "Iniciando processamento";
+    var status = 'ativo';
+    let z = x ** y;
+    
+    if (z >= 100) {
+        z %= 10;
+    } else {
+        z <<= 2;
+    }
+
+    while (status == 'ativo') {
+        if (z === 0) {
+            status = 'inativo';
         }
-    } 
-    soma(); 
-    sumparabolac(2); 
-    return true; 
+        z--;
+    }
+
+    for (i = 0; i < 5; i++) {
+        z = z | 1;
+        z = (z > 0) ? z : ~z;
+    }
+
+    return true;
+}
+
+function main() {
+    let calc = new Calculadora();
+    calc.somar(10, 20);
+    operacoes(2, 8);
+    return false;
 }
 '''
 if __name__ == '__main__':
