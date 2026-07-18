@@ -24,7 +24,6 @@ reservadas = {
 	'this' : 'THIS',
 	'typeof' : 'TYPEOF',
 	'var' : 'VAR',
-	'void' : 'VOID',
 	'while' : 'WHILE',
 	'with' : 'WITH',
 	'protected' : 'PROTECTED',
@@ -94,8 +93,6 @@ tokens = [
 	'VIRGULA',
     'FLOAT_LITERAL',
     'INT_LITERAL',
-	'ASPAS_DUPLAS',
-	'ASPAS',
 	'PONTO_E_VIRGULA',
 	'ID',
 	'STRING_AD',
@@ -153,8 +150,6 @@ t_XOR_BIT_IGUAL = r'\^\='
 t_OR_BIT_IGUAL = r'\|\='
 t_VIRGULA = r'\,'
 t_PONTO_E_VIRGULA = r'\;'
-t_ASPAS_DUPLAS = r'\"'
-t_ASPAS = r'\''
 
 t_ignore = ' \t\r'
 

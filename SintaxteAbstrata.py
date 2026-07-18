@@ -377,7 +377,7 @@ class ExpEbit(Exp):
         self.exp2 = exp2
 
     def accept(self, visitor):
-        return visitor.visitExpEbitabit(self)
+        return visitor.visitExpEbit(self)
 
 class ExpXorbit(Exp):
     def __init__(self, exp1, exp2):

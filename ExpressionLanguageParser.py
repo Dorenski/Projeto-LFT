@@ -485,7 +485,7 @@ def p_exp13_exp14(p):
 
 def p_exp14_NEW_VAZIO(p):
     ''' exp14 : NEW ID L_PARENTESIS R_PARENTESIS '''
-    p[0] = sa.ExpNewSemParametro(p[1])
+    p[0] = sa.ExpNewSemParametro(p[2])
 
 
 def p_exp14_NEW_PARAMS(p):
