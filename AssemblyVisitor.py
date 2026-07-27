@@ -107,7 +107,7 @@ class AssemblyVisitor(AbstractVisitor):
         st.endScope()
 
     def visitSemValorAttrdecl(self, SemValorAttrdecl):
-        pass # Requer offset de Heap no MIPS
+        pass
 
     def visitComValorAttrdecl(self, ComValorAttrdecl):
         ComValorAttrdecl.exp.accept(self)
@@ -368,7 +368,7 @@ class AssemblyVisitor(AbstractVisitor):
         self.getList().append(f"    li $v0, 0")
 
     def visitExpStringAD(self, ExpStringAD):  
-        pass # Requer asciiz em .data
+        pass
 
     def visitExpStringA(self, ExpStringA):
         pass
@@ -552,7 +552,52 @@ class AssemblyVisitor(AbstractVisitor):
     
 def main():
     codigo_teste = """
-print
+class Calculadora {
+    resultado;
+
+    constructor() {
+        this.resultado = 0;
+    }
+
+    somar(a, b) {
+        let res = a + b;
+        this.resultado += res;
+        return this.resultado;
+    }
+}
+
+function operacoes(x, y) {
+    const msg = "Iniciando processamento";
+    var status = 'ativo';
+    let z = x ** y;
+    
+    if (z >= 100) {
+        z %= 10;
+    } else {
+        z <<= 2;
+    }
+
+    while (status == 'ativo') {
+        if (z === 0) {
+            status = 'inativo';
+        }
+        z--;
+    }
+
+    for (i = 0; i < 5; i++) {
+        z = z | 1;
+        z = (z > 0) ? z : ~z;
+    }
+
+    return true;
+}
+
+function main() {
+    let calc = new Calculadora();
+    calc.somar(10, 20);
+    operacoes(2, 8);
+    return false;
+}
     """
     
     lexer = lex.lex()

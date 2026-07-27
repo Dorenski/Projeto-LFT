@@ -479,60 +479,52 @@ class Visitor(AbstractVisitor):
 if __name__ == "__main__":
 
     codigo_teste = """
-class Motor {
-        potencia;
+class Calculadora {
+    resultado;
 
-        constructor() {
-            this.potencia = 100;
-        }
-
-        aumentar(extra) {
-            this.potencia += extra;
-            return this.potencia;
-        }
+    constructor() {
+        this.resultado = 0;
     }
 
-    function testarLogica(valor, flag) {
-        let x = valor;
-        let y = 5;
-        let z = 0;
+    somar(a, b) {
+        let res = a + b;
+        this.resultado += res;
+        return this.resultado;
+    }
+}
 
-        // Testando condicional e operadores bit-a-bit
-        if (flag === true) {
-            z = (x & y) | 1;
-            z <<= 1;
-        } else {
-            z = ~x ^ y;
-        }
-
-        // ERRO INTENCIONAL 1: 
-        // O while exige uma expressão booleana (verdadeiro/falso).
-        // Aqui estamos passando uma operação matemática (z + 10), que resulta em um número.
-        while (z + 10) {
-            z--;
-        }
-
-        // Testando FOR (a variável 'k' será inferida no Visitor por causa da nossa adaptação)
-        for (k = 0; k < 3; k++) {
-            z *= 2;
-        }
-
-        // ERRO INTENCIONAL 2: 
-        // Tentativa de fazer uma conta matemática de subtração com uma string.
-        // Nossa função 'coercion' só permite matemática entre números.
-        let erroSubtracao = 50 - "texto";
-
-        return z;
+function operacoes(x, y) {
+    const msg = "Iniciando processamento";
+    var status = 'ativo';
+    let z = x ** y;
+    
+    if (z >= 100) {
+        z %= 10;
+    } else {
+        z <<= 2;
     }
 
-    function main() {
-        let m = new Motor();
-        m.aumentar(50);
-        
-        let teste = testarLogica(10, false);
-        
-        return teste;
+    while (status == 'ativo') {
+        if (z === 0) {
+            status = 'inativo';
+        }
+        z--;
     }
+
+    for (i = 0; i < 5; i++) {
+        z = z | 1;
+        z = (z > 0) ? z : ~z;
+    }
+
+    return true;
+}
+
+function main() {
+    let calc = new Calculadora();
+    calc.somar(10, 20);
+    operacoes(2, 8);
+    return false;
+}
     """
     lexer = lex.lex()
     lexer.input(codigo_teste)
